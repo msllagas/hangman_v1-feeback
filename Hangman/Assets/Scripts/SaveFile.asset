@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0f6afe3a3c10f47b3a8dbf90fda6ca, type: 3}
   m_Name: SaveFile
   m_EditorClassIdentifier: 
-  totalWins: 4
+  totalWins: 5
   totalLosses: 1
-  winRatio: 80
-  gamesPlayed: 5
+  winRatio: 83.333336
+  gamesPlayed: 6
   fastestTime: 11
