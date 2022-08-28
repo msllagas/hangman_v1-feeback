@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // 39
 using TMPro; // 44
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 
 // 35
 public class UIHandler : MonoBehaviour
@@ -18,7 +16,7 @@ public class UIHandler : MonoBehaviour
     public Animator settingsPanel; // id 4
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
-    public Stats saveFile; // 44
+    [SerializeField] SCR_BaseStats saveFile; // 44
 
     void Awake()
     {
@@ -27,7 +25,6 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
-        InitialSaveFile();
         UpdateStatsText();
     } // 45
 
@@ -38,29 +35,18 @@ public class UIHandler : MonoBehaviour
     public void StatsButton() // top-left corner button
     {
         statsPanel.SetTrigger("open");
-        UpdateStatsText(); // 45
-    }
-
-    void InitialSaveFile()
-    {
-        Stats statFile = new Stats();
-
-        string path = Application.persistentDataPath + "/stats.save";
-        if (!File.Exists(path))
-        {
-            statFile.InitStats();
-        }  
-    }
+       UpdateStatsText(); // 45
+    } 
 
     void UpdateStatsText()
     {
-        StatsData statsList = SaveSystem.LoadStats(); 
+        List<int> statsList = saveFile.GetStats(); 
         statsText.text =
-            "Total Wins: " + statsList.totalWins + "\n" +
-            "Total Losses: " + statsList.totalLosses + "\n" +
-            "Total Games Played: " + statsList.gamesPlayed + "\n" +
-            "Win Rate: " + statsList.winRatio + "% \n" +
-            "Fastest Time: " + statsList.fastestTime + " seconds \n"; 
+            "Total Wins: " + statsList[0] + "\n" +
+            "Total Losses: " + statsList[1] + "\n" +
+            "Total Games Played: " + statsList[3] + "\n" +
+            "Win Rate: " + statsList[2] + "% \n" +
+            "Fastest Time: " + statsList[4] + " seconds \n"; 
     } // 45
 
     public void ClosePanelButton(int buttonId)
@@ -85,15 +71,13 @@ public class UIHandler : MonoBehaviour
 
     public void WinCondition(int playTime) // could pass in mistakes used and time used
     {
-        Stats statwFile = new Stats();
-        statwFile.SaveStats(true, playTime); // 44
+        saveFile.SaveStats(true, playTime); // 44
         winPanel.SetTrigger("open");
     }
 
     public void LoseCondition(int playTime) // could pass in mistakes used and time used
     {
-        Stats statlFile = new Stats();
-        statlFile.SaveStats(false, playTime); // 44
+        saveFile.SaveStats(false, playTime); // 44
         gameOverPanel.SetTrigger("open");
     }
 
