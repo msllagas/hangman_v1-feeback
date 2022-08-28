@@ -338,7 +338,6 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
   statsText: {fileID: 1257582657}
-  saveFile: {fileID: 11400000, guid: f4f1f7ff0ae31eb4089fa82f84fcaf0c, type: 2}
 --- !u!4 &271535053
 Transform:
   m_ObjectHideFlags: 0
