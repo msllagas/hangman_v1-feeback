@@ -11,7 +11,8 @@ public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance; // 38
 
-
+    public Animator firstCloud;
+    public Animator secondCloud;
     public Animator gameOverPanel; // id 1
     public Animator statsPanel; // id 2
     public Animator winPanel; // id 3
@@ -99,8 +100,24 @@ public class UIHandler : MonoBehaviour
 
     public void BackToMenu(string levelToLoad)
     {
+        
         SceneManager.LoadScene(levelToLoad);
+
     } // 39
+
+    public IEnumerator NextLevelAfterWait()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        SceneManager.LoadScene("Game");
+    }
+    public void Menu()
+    {
+         firstCloud.SetTrigger("close");
+         secondCloud.SetTrigger("close");
+        //SceneManager.LoadScene("Game");
+        StartCoroutine(NextLevelAfterWait());
+    }
 
     public void ResetGame()
     {
