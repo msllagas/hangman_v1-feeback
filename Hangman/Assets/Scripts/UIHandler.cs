@@ -24,6 +24,7 @@ public class UIHandler : MonoBehaviour
     public AudioClip winnerSound;
     public AudioClip backgroundSound;
     public AudioClip gameOverSound;
+    public AudioClip clickSound;
     public AudioSource audioSource;
     void Awake()
     {
@@ -125,6 +126,11 @@ public class UIHandler : MonoBehaviour
 
 
         }
+    }
+    public void HintSound()
+    {
+        audioSource.clip = clickSound;
+        audioSource.Play();
     }
 
     public void LoseCondition(int playTime) // could pass in mistakes used and time used

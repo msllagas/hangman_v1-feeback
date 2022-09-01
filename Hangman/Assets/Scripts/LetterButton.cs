@@ -6,6 +6,8 @@ using UnityEngine.UI; // 26
 public class LetterButton : MonoBehaviour
 {
     string letter;
+    [SerializeField]
+    public AudioSource audioSource;
 
 
     public void SetButton(string _letter)
@@ -19,5 +21,10 @@ public class LetterButton : MonoBehaviour
         GameManager.instance.InputFromButton(letter, isThatAHint); // 23
         ButtonCreator.instance.RemoveLetter(this); // 26
         GetComponent<Button>().interactable = false;
+    }
+    public void click()
+    {
+        audioSource.GetComponent<AudioSource>();
+        audioSource.Play();
     }
 }

@@ -7,6 +7,7 @@ public class ButtonCreator : MonoBehaviour
 {
     public static ButtonCreator instance; // 26
 
+
     public GameObject buttonPrefab;
     string[] letterToUse = new string[26] {"A", "B", "C", "D", "E",
                                             "F", "G", "H", "I", "J",
