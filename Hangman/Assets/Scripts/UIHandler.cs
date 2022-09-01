@@ -20,7 +20,11 @@ public class UIHandler : MonoBehaviour
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
     public Stats saveFile; // 44
-
+    [Header("AUDIO")]
+    public AudioClip winnerSound;
+    public AudioClip backgroundSound;
+    public AudioClip gameOverSound;
+    public AudioSource audioSource;
     void Awake()
     {
         instance = this;   
@@ -28,6 +32,7 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
+        BackGroundMusic();
         InitialSaveFile();
         UpdateStatsText();
     } // 45
@@ -64,31 +69,62 @@ public class UIHandler : MonoBehaviour
             "Fastest Time: " + statsList.fastestTime + " seconds \n"; 
     } // 45
 
+    void BackGroundMusic()
+    {
+        audioSource.GetComponent<AudioSource>();
+        audioSource.clip = backgroundSound;
+        audioSource.loop = true;
+        audioSource.Play();
+        //audioSource.PlayOneShot(backgroundSound, 0.7f);
+        
+    }
+
     public void ClosePanelButton(int buttonId)
     {
         switch (buttonId)
         {
             case 1:
-                gameOverPanel.SetTrigger("close");
+                gameOverPanelTrigger();
                 break;
             case 2:
                 statsPanel.SetTrigger("close");
                 break;
             case 3:
-                winPanel.SetTrigger("close");
+                winPanelTrigger();
                 break;
             case 4:
                 settingsPanel.SetTrigger("close");
                 break;
         }
     }
+    public void winPanelTrigger()
+    {
+        winPanel.SetTrigger("close");
+        audioSource.clip = winnerSound;
+        audioSource.Stop();
+        BackGroundMusic();
 
+    }
+    public void gameOverPanelTrigger()
+    {
+        gameOverPanel.SetTrigger("close");
+        audioSource.clip = gameOverSound;
+        audioSource.Stop();
+        BackGroundMusic();
+    }
 
     public void WinCondition(int playTime) // could pass in mistakes used and time used
     {
         Stats statwFile = new Stats();
         statwFile.SaveStats(true, playTime); // 44
         winPanel.SetTrigger("open");
+        audioSource.Stop();
+        if (winnerSound != null)
+        {
+            audioSource.PlayOneShot(winnerSound, 0.7f);
+
+
+        }
     }
 
     public void LoseCondition(int playTime) // could pass in mistakes used and time used
@@ -96,6 +132,13 @@ public class UIHandler : MonoBehaviour
         Stats statlFile = new Stats();
         statlFile.SaveStats(false, playTime); // 44
         gameOverPanel.SetTrigger("open");
+        audioSource.Stop();
+        if (gameOverSound != null)
+        {
+            audioSource.PlayOneShot(gameOverSound, 0.7f);
+
+
+        }
     }
 
     public void BackToMenu(string levelToLoad)
