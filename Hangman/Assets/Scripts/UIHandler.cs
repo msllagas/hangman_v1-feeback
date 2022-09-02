@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement; // 39
+using UnityEngine.UI;
 using TMPro; // 44
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -26,6 +27,9 @@ public class UIHandler : MonoBehaviour
     public AudioClip gameOverSound;
     public AudioClip clickSound;
     public AudioSource audioSource;
+
+    public Image image;
+
     void Awake()
     {
         instance = this;   
@@ -33,6 +37,7 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
+
         BackGroundMusic();
         InitialSaveFile();
         UpdateStatsText();
@@ -41,11 +46,18 @@ public class UIHandler : MonoBehaviour
     public void SettingsButton() // top-left corner button
     {
         settingsPanel.SetTrigger("open");
+        ImageEnabler();
     }
     public void StatsButton() // top-left corner button
     {
+
+        UpdateStatsText();
         statsPanel.SetTrigger("open");
-        UpdateStatsText(); // 45
+        ImageEnabler();
+       /* image.GetComponent<Image>();
+        image.gameObject.SetActive(true);*/
+
+        // 45
     }
 
     void InitialSaveFile()
@@ -63,11 +75,11 @@ public class UIHandler : MonoBehaviour
     {
         StatsData statsList = SaveSystem.LoadStats(); 
         statsText.text =
-            "Total Wins: " + statsList.totalWins + "\n" +
-            "Total Losses: " + statsList.totalLosses + "\n" +
-            "Total Games Played: " + statsList.gamesPlayed + "\n" +
-            "Win Rate: " + statsList.winRatio + "% \n" +
-            "Fastest Time: " + statsList.fastestTime + " seconds \n"; 
+            "Total Wins:    \t\t\t\t  " + statsList.totalWins + "\n" +
+            "Total Losses:   \t\t\t\t  " + statsList.totalLosses + "\n" +
+            "Total Games Played:  \t\t  " + statsList.gamesPlayed + "\n" +
+            "Win Rate:  \t\t\t\t " + statsList.winRatio + "% \n" +
+            "Fastest Time:\t\t" + statsList.fastestTime + " seconds \n"; 
     } // 45
 
     void BackGroundMusic()
@@ -88,13 +100,15 @@ public class UIHandler : MonoBehaviour
                 gameOverPanelTrigger();
                 break;
             case 2:
-                statsPanel.SetTrigger("close");
+                //statsPanel.SetTrigger("close");
+                statsPanelTrigger();
                 break;
             case 3:
                 winPanelTrigger();
                 break;
             case 4:
-                settingsPanel.SetTrigger("close");
+                settingsPanelTrigger();
+                //settingsPanel.SetTrigger("close");
                 break;
         }
     }
@@ -113,12 +127,27 @@ public class UIHandler : MonoBehaviour
         audioSource.Stop();
         BackGroundMusic();
     }
+    public void statsPanelTrigger()
+    {
+        //image.GetComponent<Image>();
+        //image.gameObject.SetActive(false);
+        ImageDisabler();
+        statsPanel.SetTrigger("close");
+
+    }
+    public void settingsPanelTrigger()
+    {
+
+        ImageDisabler();
+        settingsPanel.SetTrigger("close");
+    }
 
     public void WinCondition(int playTime) // could pass in mistakes used and time used
     {
         Stats statwFile = new Stats();
         statwFile.SaveStats(true, playTime); // 44
         winPanel.SetTrigger("open");
+        ImageEnabler();
         audioSource.Stop();
         if (winnerSound != null)
         {
@@ -127,7 +156,7 @@ public class UIHandler : MonoBehaviour
 
         }
     }
-    public void HintSound()
+    public void ClickSound()
     {
         audioSource.clip = clickSound;
         audioSource.Play();
@@ -138,6 +167,7 @@ public class UIHandler : MonoBehaviour
         Stats statlFile = new Stats();
         statlFile.SaveStats(false, playTime); // 44
         gameOverPanel.SetTrigger("open");
+        ImageEnabler();
         audioSource.Stop();
         if (gameOverSound != null)
         {
@@ -178,4 +208,16 @@ public class UIHandler : MonoBehaviour
     {
         Application.Quit();
     }// 40
+
+    public void ImageEnabler()
+    {
+        image.GetComponent<Image>();
+        image.gameObject.SetActive(true);
+    }
+    public void ImageDisabler()
+    {
+
+        image.GetComponent<Image>();
+        image.gameObject.SetActive(false);
+    }
 }
