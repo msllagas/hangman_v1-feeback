@@ -16,4 +16,4 @@ MonoBehaviour:
   totalLosses: 0
   winRatio: 0
   gamesPlayed: 0
-  fastestTime: 0
+  fastestTime: 9999

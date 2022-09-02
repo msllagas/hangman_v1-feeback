@@ -78,7 +78,7 @@ public class UIHandler : MonoBehaviour
             "Total Wins:    \t\t\t\t  " + statsList.totalWins + "\n" +
             "Total Losses:   \t\t\t\t  " + statsList.totalLosses + "\n" +
             "Total Games Played:  \t\t  " + statsList.gamesPlayed + "\n" +
-            "Win Rate:  \t\t\t\t " + statsList.winRatio + "% \n" +
+            "Win Rate:  \t\t\t\t\t " + statsList.winRatio + "% \n" +
             "Fastest Time:\t\t" + statsList.fastestTime + " seconds \n"; 
     } // 45
 
