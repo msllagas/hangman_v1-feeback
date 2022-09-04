@@ -75,11 +75,11 @@ public class UIHandler : MonoBehaviour
     {
         StatsData statsList = SaveSystem.LoadStats(); 
         statsText.text =
-            "Total Wins:    \t\t\t\t  " + statsList.totalWins + "\n" +
+            "Total Wins:    \t\t\t\t    " + statsList.totalWins + "\n" +
             "Total Losses:   \t\t\t\t  " + statsList.totalLosses + "\n" +
             "Total Games Played:  \t\t  " + statsList.gamesPlayed + "\n" +
-            "Win Rate:  \t\t\t\t\t " + statsList.winRatio + "% \n" +
-            "Fastest Time:\t\t" + statsList.fastestTime + " seconds \n"; 
+            "Win Rate:\t\t\t\t" + statsList.winRatio + "%\n" +
+            "Fastest Time:\t\t " + statsList.fastestTime + " seconds \n"; 
     } // 45
 
     void BackGroundMusic()

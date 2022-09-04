@@ -29,3 +29,7 @@ MonoBehaviour:
   - DEVELOP
   - SCARCE
   - PRINT
+  - SCAN
+  - WAIT
+  - COOK
+  - TRANSLATION
