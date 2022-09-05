@@ -28,6 +28,9 @@ public class UIHandler : MonoBehaviour
     public AudioClip clickSound;
     public AudioSource audioSource;
 
+    [Header("SLIDER")]
+    [SerializeField] Slider bgmSlider;
+
     public Image image;
 
     void Awake()
@@ -41,6 +44,9 @@ public class UIHandler : MonoBehaviour
         BackGroundMusic();
         InitialSaveFile();
         UpdateStatsText();
+        //Load();
+        LoadBGMSession();
+
     } // 45
 
     public void SettingsButton() // top-left corner button
@@ -75,11 +81,11 @@ public class UIHandler : MonoBehaviour
     {
         StatsData statsList = SaveSystem.LoadStats(); 
         statsText.text =
-            "Total Wins:    \t\t\t\t    " + statsList.totalWins + "\n" +
-            "Total Losses:   \t\t\t\t  " + statsList.totalLosses + "\n" +
-            "Total Games Played:  \t\t  " + statsList.gamesPlayed + "\n" +
-            "Win Rate:\t\t\t\t" + statsList.winRatio + "%\n" +
-            "Fastest Time:\t\t " + statsList.fastestTime + " seconds \n"; 
+            "" + statsList.totalWins + "\n" +
+            "" + statsList.totalLosses + "\n" +
+            "" + statsList.gamesPlayed + "\n" +
+            "" + statsList.winRatio + "%\n" +
+            "" + statsList.fastestTime + "s\n"; 
     } // 45
 
     void BackGroundMusic()
@@ -140,6 +146,7 @@ public class UIHandler : MonoBehaviour
 
         ImageDisabler();
         settingsPanel.SetTrigger("close");
+        Save();
     }
 
     public void WinCondition(int playTime) // could pass in mistakes used and time used
@@ -192,8 +199,6 @@ public class UIHandler : MonoBehaviour
     }
     public void Menu()
     {
-         //firstCloud.SetTrigger("close");
-         //secondCloud.SetTrigger("close");
         SceneManager.LoadScene("Game");
         //StartCoroutine(NextLevelAfterWait());
     }
@@ -219,5 +224,33 @@ public class UIHandler : MonoBehaviour
 
         image.GetComponent<Image>();
         image.gameObject.SetActive(false);
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetFloat("musicVolume", bgmSlider.value);
+        //Load();
+    }
+    public void Load()
+    {
+        bgmSlider.value = PlayerPrefs.GetFloat("musicVolume");
+        //AudioListener.volume = bgmSlider.value;
+    }
+    public void LoadBGMSession()
+    {
+        if (!PlayerPrefs.HasKey("musicVolume"))
+        {
+            PlayerPrefs.SetFloat("musicVolume", 1);
+            Load();
+        }
+        else
+        {
+            Load();
+        }
+    }
+    public void ChangeVolume()
+    {
+        AudioListener.volume = bgmSlider.value;
+        Save();
     }
 }
