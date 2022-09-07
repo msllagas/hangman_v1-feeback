@@ -52,14 +52,16 @@ public class GameManager : MonoBehaviour
 
     void Initialize()
     {
+        string[] words =  { "Word", "Hello", "Goodbye" };
         // pick a category first
+
         int cIndex = Random.Range(0, categories.Length); // 19
         categoryText.text = categories[cIndex].name; // 24
         int wIndex = Random.Range(0, categories[cIndex].wordList.Length); // 19
 
-        // pick a word from list or category
+        //pick a word from list or category
         string pickedWord = categories[cIndex].wordList[wIndex]; // 19
-
+        
         // split the word into single letters
         string[] splittedWord = pickedWord.Select(l => l.ToString()).ToArray(); // 19
         unsolvedWord = new string[splittedWord.Length]; // 19

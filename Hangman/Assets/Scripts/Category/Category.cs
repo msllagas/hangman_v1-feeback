@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 // 17
@@ -12,7 +13,10 @@ public class Category : ScriptableObject
     {
         for (int i = 0; i < wordList.Length; i++)
         {
+
             wordList[i] = ConvertTheWord(wordList[i]);
+
+
         }
     }
 
