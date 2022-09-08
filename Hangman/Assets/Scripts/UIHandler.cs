@@ -18,6 +18,7 @@ public class UIHandler : MonoBehaviour
     public Animator statsPanel; // id 2
     public Animator winPanel; // id 3
     public Animator settingsPanel; // id 4
+    public Animator hintPanel;
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
     public Stats saveFile; // 44
@@ -252,5 +253,9 @@ public class UIHandler : MonoBehaviour
     {
         AudioListener.volume = bgmSlider.value;
         Save();
+    }
+    public void DefinitionHint()
+    {
+        hintPanel.SetTrigger("open");
     }
 }

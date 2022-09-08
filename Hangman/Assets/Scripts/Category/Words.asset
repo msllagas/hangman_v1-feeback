@@ -15,4 +15,13 @@ MonoBehaviour:
   name: Words
   wordList:
   - SELECT
-  - SING
+  - SINGING
+  - CODE
+  - COOK
+  - DEVELOP
+  definition:
+  - Another word for choose.
+  - What singers are good at.
+  - This is what a programmer do.
+  - What a chef do.
+  - Grow or cause to grow and become more mature, advanced, or elaborate.

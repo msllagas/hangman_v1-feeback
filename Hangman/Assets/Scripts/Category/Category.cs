@@ -9,6 +9,7 @@ public class Category : ScriptableObject
 {
     public new string name;
     public string[] wordList;
+    public string[] definition;
     void OnValidate()
     {
         for (int i = 0; i < wordList.Length; i++)

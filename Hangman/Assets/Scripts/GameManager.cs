@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [Space]
     public Category[] categories; // 19
     public TMP_Text categoryText; // 24
+    public TMP_Text definitionText;
     [Header("Timer")] // 25
     [Space]
     public TMP_Text timerText; // 25
@@ -61,7 +62,10 @@ public class GameManager : MonoBehaviour
 
         //pick a word from list or category
         string pickedWord = categories[cIndex].wordList[wIndex]; // 19
-        
+
+
+        definitionText.text = categories[cIndex].definition[wIndex];
+
         // split the word into single letters
         string[] splittedWord = pickedWord.Select(l => l.ToString()).ToArray(); // 19
         unsolvedWord = new string[splittedWord.Length]; // 19
