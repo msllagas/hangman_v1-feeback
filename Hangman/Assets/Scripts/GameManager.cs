@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
 
     void Initialize()
     {
-        string[] words =  { "Word", "Hello", "Goodbye" };
         // pick a category first
 
         int cIndex = Random.Range(0, categories.Length); // 19
@@ -62,7 +61,6 @@ public class GameManager : MonoBehaviour
 
         //pick a word from list or category
         string pickedWord = categories[cIndex].wordList[wIndex]; // 19
-
 
         definitionText.text = categories[cIndex].definition[wIndex];
 

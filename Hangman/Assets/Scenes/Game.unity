@@ -1224,7 +1224,9 @@ MonoBehaviour:
   letterPrefab: {fileID: 6540678526540534163, guid: 8c4dc2adea3354f40a4dba79e02310d1, type: 3}
   letterHolder: {fileID: 1308319003}
   categories:
-  - {fileID: 11400000, guid: cb3498d142b6849488a7619b4d4bcd6d, type: 2}
+  - {fileID: 11400000, guid: ea758f6fbbf6ff543a9dd11127544158, type: 2}
+  - {fileID: 11400000, guid: de5e52e381357fb4eaee89ead0001a77, type: 2}
+  - {fileID: 11400000, guid: d707bb675c4577640b93ed67ee7e3638, type: 2}
   categoryText: {fileID: 1094617557}
   definitionText: {fileID: 369078046}
   timerText: {fileID: 1324221462}
@@ -6631,7 +6633,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -32.285, y: -29.635}
+  m_AnchoredPosition: {x: -32.284912, y: -29.63501}
   m_SizeDelta: {x: 222.10309, y: 44.238007}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1648106578

@@ -10,22 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd69b16a2c5c89948947b1ffe8aa1abb, type: 3}
-  m_Name: Words
+  m_Name: B
   m_EditorClassIdentifier: 
-  name: Words
-  wordList:
-  - SELECT
-  - SINGING
-  - CODE
-  - COOK
-  - DEVELOP
-  - WILLIAM
-  - SLEEP
-  definition:
-  - Another word for choose.
-  - What singers are good at.
-  - This is what a programmer do.
-  - What a chef do.
-  - Grow or cause to grow and become more mature, advanced, or elaborate.
-  - hahahahaha hatdog
-  - What you do all day.
+  name: 
+  wordList: []
+  definition: []
