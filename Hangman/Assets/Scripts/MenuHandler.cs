@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class MenuHandler : MonoBehaviour
 {
@@ -11,40 +13,68 @@ public class MenuHandler : MonoBehaviour
     [SerializeField] Slider bgmSlider;
 
     [Header("Animators")]
-    public Animator VolumeButton;
+    public Animator AnimateStats;
+    public Animator AnimateSettings;
 
     [Header("Buttons")]
-    public Button openButton;
-    public Button closeButton;
+    public Button StatsButton;
+    public Button SettingsButton;
 
+    [Header("STATS")]
+    public TMP_Text statsText;
+    public Stats saveFile;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        UpdateStatsText();
         LoadBGMSession();
     }
 
-    public void OpenVolumeClick()
+    void UpdateStatsText()
     {
+        StatsData statsList = SaveSystem.LoadStats();
+        statsText.text =
+            "" + statsList.totalWins + "\n" +
+            "" + statsList.totalLosses + "\n" +
+            "" + statsList.gamesPlayed + "\n" +
+            "" + statsList.winRatio + "%\n" +
+            "" + statsList.fastestTime + "s\n";
+    } // 45
+    public void OpenSettings()
+    {
+        AnimateSettings.SetTrigger("open");
+        SettingsButton.GetComponent<Button>();
+        SettingsButton.enabled = !SettingsButton.enabled;
 
-        VolumeButton.SetTrigger("open");
-        closeButton.GetComponent<Button>();
-        closeButton.gameObject.SetActive(true);
-
-        openButton.gameObject.SetActive(false);
-
+        StatsButton.GetComponent<Button>();
+        StatsButton.enabled = !StatsButton.enabled;
 
     }
-    public void CloseVolumeClick()
+    public void CloseSettings()
+    {
+        AnimateSettings.SetTrigger("close");
+        SettingsButton.GetComponent<Button>();
+        SettingsButton.enabled = true;
+        StatsButton.enabled = true;
+    }
+    public void OpenStats()
+    {
+        AnimateStats.SetTrigger("open");
+        StatsButton.GetComponent<Button>();
+        StatsButton.enabled = !StatsButton.enabled;
+
+
+        SettingsButton.GetComponent<Button>();
+        SettingsButton.enabled = !SettingsButton.enabled;
+    }
+    public void CloseStats()
     {
 
-        closeButton.gameObject.SetActive(false);
-
-        VolumeButton.SetTrigger("close");
-        openButton.gameObject.SetActive(true);
-
-
+        AnimateStats.SetTrigger("close");
+        StatsButton.GetComponent<Button>();
+        StatsButton.enabled = true;
+        SettingsButton.enabled = true;
     }
 
     public void Save()

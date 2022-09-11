@@ -22,6 +22,8 @@ public class UIHandler : MonoBehaviour
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
     public Stats saveFile; // 44
+    [Header("POINTS")]
+    public TMP_Text pointsText;
     [Header("AUDIO")]
     public AudioClip winnerSound;
     public AudioClip backgroundSound;
@@ -47,6 +49,7 @@ public class UIHandler : MonoBehaviour
         UpdateStatsText();
         //Load();
         LoadBGMSession();
+        UpdatePoints();
 
     } // 45
 
@@ -88,6 +91,11 @@ public class UIHandler : MonoBehaviour
             "" + statsList.winRatio + "%\n" +
             "" + statsList.fastestTime + "s\n"; 
     } // 45
+    void UpdatePoints()
+    {
+        StatsData statsList = SaveSystem.LoadStats();
+        pointsText.text = "" + statsList.points;
+    }
 
     void BackGroundMusic()
     {
@@ -152,28 +160,20 @@ public class UIHandler : MonoBehaviour
 
     public void WinCondition(int playTime) // could pass in mistakes used and time used
     {
-        Stats statwFile = new Stats();
-        statwFile.SaveStats(true, playTime); // 44
+        Stats statsFile = new Stats();
+        statsFile.SaveStats(true, playTime); // 44
         winPanel.SetTrigger("open");
         ImageEnabler();
         audioSource.Stop();
         if (winnerSound != null)
         {
             audioSource.PlayOneShot(winnerSound, 0.7f);
-
-
         }
     }
-    public void ClickSound()
-    {
-        audioSource.clip = clickSound;
-        audioSource.Play();
-    }
-
     public void LoseCondition(int playTime) // could pass in mistakes used and time used
     {
-        Stats statlFile = new Stats();
-        statlFile.SaveStats(false, playTime); // 44
+        Stats statsFile = new Stats();
+        statsFile.SaveStats(false, playTime); // 44
         gameOverPanel.SetTrigger("open");
         ImageEnabler();
         audioSource.Stop();
@@ -226,7 +226,11 @@ public class UIHandler : MonoBehaviour
         image.GetComponent<Image>();
         image.gameObject.SetActive(false);
     }
-
+    public void ClickSound()
+    {
+        audioSource.clip = clickSound;
+        audioSource.Play();
+    }
     public void Save()
     {
         PlayerPrefs.SetFloat("musicVolume", bgmSlider.value);

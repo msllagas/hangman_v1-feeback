@@ -18,9 +18,9 @@ public class Stats
     {
 
         StatsData statsList = SaveSystem.LoadStats();
-        
-        //AssetDatabase.Refresh();
 
+        //AssetDatabase.Refresh();
+        statsList.points += (hasWonGame) ? 5 : 0;
         statsList.totalWins += (hasWonGame) ? 1 : 0;
         statsList.totalLosses += (!hasWonGame) ? 1 : 0;
         statsList.gamesPlayed = statsList.totalLosses + statsList.totalWins;
