@@ -14,6 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: 
   wordList:
-  - SAMPLE
+  - LICENSE
+  - NOTORIOUS
+  - BURDEN
+  - COMPROMISE
+  - SHED
+  - REVELATION
+  - STRAIGHTFORWARD
+  - COINCIDE
+  - HUMBLE
+  - SUSTAIN
+  - SWING
+  - SYNDROME
   definition:
-  - A sample text.
+  - '[v] to give somebody official permission to do, own, or use something'
+  - '[adj] well known for being bad'
+  - '[n] a duty, responsibility, etc. that causes worry, difficulty or hard work'
+  - '[v]  to give up some of your demands in order to reach an agreement after disagreeing with somebody'
+  - '[v] to take off a piece of clothing'
+  - '[n] a fact that people are made aware of, especially one that has been secret and is surprising'
+  - '[adj] easy to do or to understand; not complicated'
+  - '[v]  (of two or more events) to take place at the same time'
+  - '[adj] showing you do not think that you are as important as other people'
+  - '[v] to provide enough of what somebody/something needs in order to live or exist'
+  - '[v] to move backwards or forwards or from side to side while hanging from a fixed point; to make something do this'
+  - '[n] a set of physical conditions that show you have a particular disease or medical problem'
