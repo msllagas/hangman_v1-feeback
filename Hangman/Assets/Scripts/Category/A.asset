@@ -16,6 +16,8 @@ MonoBehaviour:
   wordList:
   - MEET
   - COOK
+  - ACTIVITY
   definition:
   - To gather.
   - Takes place usually in the kitchen.
+  - '[noun] A thing that you do for interest or pleasure'
