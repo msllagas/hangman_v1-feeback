@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 27.179, y: 36.501}
+  m_AnchoredPosition: {x: 30.1, y: 26.9}
   m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61614860
@@ -796,7 +796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 35.500984}
+  m_AnchoredPosition: {x: 6, y: 26.9}
   m_SizeDelta: {x: 104.9354, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &214034382
@@ -916,6 +916,7 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
   hintPanel: {fileID: 0}
+  earnPoints: {fileID: 0}
   statsText: {fileID: 1762805015}
   pointsText: {fileID: 0}
   winnerSound: {fileID: 0}

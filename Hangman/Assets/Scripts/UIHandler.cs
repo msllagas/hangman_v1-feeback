@@ -19,6 +19,8 @@ public class UIHandler : MonoBehaviour
     public Animator winPanel; // id 3
     public Animator settingsPanel; // id 4
     public Animator hintPanel;
+    [Space]
+    public Animator earnPoints;
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
     public Stats saveFile; // 44
@@ -36,9 +38,19 @@ public class UIHandler : MonoBehaviour
 
     public Image image;
 
+    
+    public void reducer()
+    {
+        StatsData statsList = SaveSystem.LoadStats();
+        statsList.points -= 5;
+        SaveSystem.SaveStats(statsList);
+        UpdatePoints();
+    }
+
     void Awake()
     {
-        instance = this;   
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
     }// 38
 
     void Start()
@@ -50,8 +62,10 @@ public class UIHandler : MonoBehaviour
         //Load();
         LoadBGMSession();
         UpdatePoints();
+        
 
     } // 45
+
 
     public void SettingsButton() // top-left corner button
     {
@@ -94,7 +108,16 @@ public class UIHandler : MonoBehaviour
     void UpdatePoints()
     {
         StatsData statsList = SaveSystem.LoadStats();
-        pointsText.text = "" + statsList.points;
+        //pointsText.text = "" + statsList.points;
+        if (statsList.points >= 1000)
+        {
+            pointsText.text = "" + System.Math.Round(statsList.points / 1000f, 2) + "K";
+        }
+        else
+        {
+            pointsText.text = "" + statsList.points;
+        }
+
     }
 
     void BackGroundMusic()
@@ -163,12 +186,16 @@ public class UIHandler : MonoBehaviour
         Stats statsFile = new Stats();
         statsFile.SaveStats(true, playTime); // 44
         winPanel.SetTrigger("open");
+        
         ImageEnabler();
         audioSource.Stop();
         if (winnerSound != null)
         {
             audioSource.PlayOneShot(winnerSound, 0.7f);
         }
+        StartCoroutine(NextLevelAfterWait());
+        //earnPoints.SetTrigger("open");
+        StartCoroutine(PointsUpdateDelay());
     }
     public void LoseCondition(int playTime) // could pass in mistakes used and time used
     {
@@ -194,9 +221,17 @@ public class UIHandler : MonoBehaviour
 
     public IEnumerator NextLevelAfterWait()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(.5f);
 
-        SceneManager.LoadScene("Game");
+        //SceneManager.LoadScene("Game");
+        earnPoints.SetTrigger("open");
+    }
+    public IEnumerator PointsUpdateDelay()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        //SceneManager.LoadScene("Game");
+        UpdatePoints();
     }
     public void Menu()
     {
@@ -262,4 +297,13 @@ public class UIHandler : MonoBehaviour
     {
         hintPanel.SetTrigger("open");
     }
+/*    public void Pause()
+    {
+        GameManager.instance.pause = true;
+    }
+    public void Play()
+    {
+        GameManager.instance.pause = false;
+    }*/
+
 }

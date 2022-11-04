@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq; // 19
+using Unity.VisualScripting.Antlr3.Runtime;
 
 // 16
 public class GameManager : MonoBehaviour
@@ -36,7 +37,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int maxMistakes;
     int currentMistakes;
-    
+
+    // public bool pause;
 
     void Awake()
     {
@@ -112,7 +114,6 @@ public class GameManager : MonoBehaviour
             // mistake stuff - graphical representation
             petalList[currentMistakes].SetTrigger("miss"); // 32
             currentMistakes++;
-
             // and do game over
             if (currentMistakes == maxMistakes) // 32
             {
@@ -153,8 +154,15 @@ public class GameManager : MonoBehaviour
         int seconds = 0;
         int minutes = 0;
         timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
-        while (!gameOver)
+        while (!gameOver )
         {
+         /*   
+                while (pause)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+                
+            */
             yield return new WaitForSeconds(1);
             playTime++;
             
@@ -162,6 +170,7 @@ public class GameManager : MonoBehaviour
             minutes = (playTime / 60) % 60;
 
             timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
+
         }
     } // 25
 
@@ -169,4 +178,5 @@ public class GameManager : MonoBehaviour
     {
         return gameOver;
     } // 27
+
 }
