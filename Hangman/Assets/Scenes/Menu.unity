@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 30.1, y: 26.9}
+  m_AnchoredPosition: {x: 30.099976, y: 26.900024}
   m_SizeDelta: {x: 18, y: 18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &61614860
@@ -796,7 +796,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 6, y: 26.9}
+  m_AnchoredPosition: {x: 6, y: 26.900024}
   m_SizeDelta: {x: 104.9354, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &214034382
@@ -916,6 +916,7 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   settingsPanel: {fileID: 0}
   hintPanel: {fileID: 0}
+  shop: {fileID: 0}
   earnPoints: {fileID: 0}
   statsText: {fileID: 1762805015}
   pointsText: {fileID: 0}
@@ -2926,8 +2927,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284961280
-  m_fontColor: {r: 0, g: 0.32156864, b: 0.40392157, a: 1}
+    rgba: 4290636029
+  m_fontColor: {r: 0.99215686, g: 0.9098039, b: 0.7411765, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

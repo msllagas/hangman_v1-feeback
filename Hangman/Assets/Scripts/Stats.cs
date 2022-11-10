@@ -10,9 +10,13 @@ public class Stats
     public int gamesPlayed;
     public float winRatio;
     public int fastestTime = 9999; // in seconds
+    public int points;
+
+    public int currentBg;
+    public bool[] bgUnlocked = new bool[4] { true, false, false, false };
+    public bool[] isApplied = new bool[4] { true, false, false, false };
 
 
- 
 
     public void SaveStats(bool hasWonGame, int playtime)
     {

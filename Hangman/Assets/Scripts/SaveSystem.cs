@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem 
 {
+   
     public static void SaveStats ( StatsData stats )
     {
         BinaryFormatter formatter = new BinaryFormatter();
@@ -38,6 +39,12 @@ public static class SaveSystem
             FileStream stream = new FileStream(path, FileMode.Open);
 
             StatsData data = formatter.Deserialize(stream) as StatsData;
+
+            if (data.bgUnlocked == null)
+                data.bgUnlocked = new bool[4] { true, false, false, false,};
+
+            if (data.isApplied == null)
+                data.isApplied = new bool[4] { true, false, false, false, };
             stream.Close();
 
             return data;
