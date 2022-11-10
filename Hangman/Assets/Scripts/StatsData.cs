@@ -14,6 +14,10 @@ public class StatsData
     public int fastestTime;
 
     public int points;
+
+    public int currentBg;
+    public bool[] bgUnlocked;
+    public bool[] isApplied;
     public StatsData ( Stats statsdata )
     {
         totalWins = statsdata.totalWins;
@@ -21,6 +25,10 @@ public class StatsData
         gamesPlayed = statsdata.gamesPlayed;
         winRatio = statsdata.winRatio;
         fastestTime = statsdata.fastestTime;
+        points = statsdata.points;
+        bgUnlocked = statsdata.bgUnlocked;
+        currentBg = statsdata.currentBg;
+        isApplied = statsdata.isApplied;
     }
 
 }

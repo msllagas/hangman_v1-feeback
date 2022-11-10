@@ -19,6 +19,7 @@ public class UIHandler : MonoBehaviour
     public Animator winPanel; // id 3
     public Animator settingsPanel; // id 4
     public Animator hintPanel;
+    public Animator shop;
     [Space]
     public Animator earnPoints;
     [Header("STATS")] // 44
@@ -50,7 +51,7 @@ public class UIHandler : MonoBehaviour
     void Awake()
     {
         instance = this;
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }// 38
 
     void Start()
@@ -241,7 +242,7 @@ public class UIHandler : MonoBehaviour
 
     public void ResetGame()
     {
-        // load the current open scene
+        // load the currentBg open scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     } // 39
 
@@ -305,5 +306,12 @@ public class UIHandler : MonoBehaviour
     {
         GameManager.instance.pause = false;
     }*/
-
+    public void OpenShop()
+    {
+        shop.SetTrigger("open");
+    }
+    public void CloseShop()
+    {
+        shop.SetTrigger("close");
+    }
 }
