@@ -10,11 +10,11 @@ public class Stats
     public int gamesPlayed;
     public float winRatio;
     public int fastestTime = 9999; // in seconds
-    public int points;
+    public int points; // for feedback version only
 
-    public int currentBg;
-    public bool[] bgUnlocked = new bool[4] { true, false, false, false };
-    public bool[] isApplied = new bool[4] { true, false, false, false };
+    public int currentBg; // for feedback version only
+    public bool[] bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false}; // for feedback version only
+    public bool[] isApplied = new bool[11]  { true, false, false, false, false, false, false, false, false, false, false }; // for feedback version only
 
 
 
@@ -24,7 +24,7 @@ public class Stats
         StatsData statsList = SaveSystem.LoadStats();
 
         //AssetDatabase.Refresh();
-        statsList.points += (hasWonGame) ? 5 : 0;
+        statsList.points += (hasWonGame) ? 5 : 0; // for feedback version only
         statsList.totalWins += (hasWonGame) ? 1 : 0;
         statsList.totalLosses += (!hasWonGame) ? 1 : 0;
         statsList.gamesPlayed = statsList.totalLosses + statsList.totalWins;

@@ -7,12 +7,14 @@ using TMPro; // 44
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class SpriteChange : MonoBehaviour
+public class SpriteChange : MonoBehaviour // for feedback version only
 {
     [Header("Sprite Change")]
     public SpriteRenderer spriteRenderer;
     public Sprite[] newSprite;
 
+    [Header("Animator")]
+    public Animator success;
     //public static Sprite savedSprite = null; //added
     public bool KeepAspectRatio;
     // Start is called before the first frame update
@@ -48,6 +50,8 @@ public class SpriteChange : MonoBehaviour
         stats.isApplied[cur] = true;
         SaveSystem.SaveStats(stats);
         spriteRenderer.sprite = newSprite[cur];
+        success.SetTrigger("open");
+        
 
     }
     public void SpriteFill()

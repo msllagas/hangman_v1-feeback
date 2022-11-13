@@ -41,12 +41,11 @@ public static class SaveSystem
             StatsData data = formatter.Deserialize(stream) as StatsData;
 
             if (data.bgUnlocked == null)
-                data.bgUnlocked = new bool[4] { true, false, false, false,};
+                data.bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false }; // added for feedback version
 
             if (data.isApplied == null)
-                data.isApplied = new bool[4] { true, false, false, false, };
+                data.isApplied = new bool[11] { true, false, false, false, false, false, false, false, false, false, false }; // added for feedback version
             stream.Close();
-
             return data;
         }
         else
