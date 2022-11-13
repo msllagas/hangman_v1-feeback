@@ -13,11 +13,11 @@ public class StatsData
     public float winRatio;
     public int fastestTime;
 
-    public int points;
+    public int points; // for feedback version only
 
-    public int currentBg;
-    public bool[] bgUnlocked;
-    public bool[] isApplied;
+    public int currentBg; // for feedback version only
+    public bool[] bgUnlocked; // for feedback version only
+    public bool[] isApplied; // for feedback version only
     public StatsData ( Stats statsdata )
     {
         totalWins = statsdata.totalWins;
@@ -25,10 +25,10 @@ public class StatsData
         gamesPlayed = statsdata.gamesPlayed;
         winRatio = statsdata.winRatio;
         fastestTime = statsdata.fastestTime;
-        points = statsdata.points;
-        bgUnlocked = statsdata.bgUnlocked;
-        currentBg = statsdata.currentBg;
-        isApplied = statsdata.isApplied;
+        points = statsdata.points; // for feedback version only
+        bgUnlocked = statsdata.bgUnlocked; // for feedback version only
+        currentBg = statsdata.currentBg; // for feedback version only
+        isApplied = statsdata.isApplied; // for feedback version only
     }
 
 }

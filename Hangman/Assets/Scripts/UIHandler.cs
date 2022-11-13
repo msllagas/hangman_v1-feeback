@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro; // 44
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 
 // 35
 public class UIHandler : MonoBehaviour
@@ -19,14 +20,14 @@ public class UIHandler : MonoBehaviour
     public Animator winPanel; // id 3
     public Animator settingsPanel; // id 4
     public Animator hintPanel;
-    public Animator shop;
+    public Animator shop; // for feedback version only
     [Space]
-    public Animator earnPoints;
+    public Animator[] earnPoints; // for feedback version only
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
     public Stats saveFile; // 44
     [Header("POINTS")]
-    public TMP_Text pointsText;
+    public TMP_Text pointsText; // for feedback version only
     [Header("AUDIO")]
     public AudioClip winnerSound;
     public AudioClip backgroundSound;
@@ -45,7 +46,7 @@ public class UIHandler : MonoBehaviour
         StatsData statsList = SaveSystem.LoadStats();
         statsList.points -= 5;
         SaveSystem.SaveStats(statsList);
-        UpdatePoints();
+        UpdatePoints(); // for feedback version only
     }
 
     void Awake()
@@ -62,8 +63,8 @@ public class UIHandler : MonoBehaviour
         UpdateStatsText();
         //Load();
         LoadBGMSession();
-        UpdatePoints();
-        
+        UpdatePoints(); // for feedback version only
+
 
     } // 45
 
@@ -119,7 +120,7 @@ public class UIHandler : MonoBehaviour
             pointsText.text = "" + statsList.points;
         }
 
-    }
+    } // for feedback version only
 
     void BackGroundMusic()
     {
@@ -225,7 +226,11 @@ public class UIHandler : MonoBehaviour
         yield return new WaitForSeconds(.5f);
 
         //SceneManager.LoadScene("Game");
-        earnPoints.SetTrigger("open");
+        
+        for (int i = 0; i < earnPoints.Length; i++)
+        {
+            earnPoints[i].SetTrigger("open");
+        }
     }
     public IEnumerator PointsUpdateDelay()
     {
@@ -309,9 +314,9 @@ public class UIHandler : MonoBehaviour
     public void OpenShop()
     {
         shop.SetTrigger("open");
-    }
+    } // for feedback version only
     public void CloseShop()
     {
         shop.SetTrigger("close");
-    }
+    } // for feedback version only
 }

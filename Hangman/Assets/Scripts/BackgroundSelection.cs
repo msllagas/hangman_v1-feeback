@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class BackgroundSelection : MonoBehaviour
+public class BackgroundSelection : MonoBehaviour // for feedback version only
 {
     [Header("Navigation Buttons")]
     [SerializeField] private Button previousButton;
@@ -24,7 +24,10 @@ public class BackgroundSelection : MonoBehaviour
     /*    [Header("Sound")]
         [SerializeField] private AudioClip purchase;
         private AudioSource source;*/
-    public string[] bgNames = new string[4] {"Default", "Background 1", "Background 2", "Background 4" };
+    [Header("Text Field")]
+    [SerializeField] private TMP_Text pointsText;
+    [Header("Background Names")]
+    public string[] bgNames;
     private void Start()
     {
         StatsData stats = SaveSystem.LoadStats();
@@ -33,18 +36,19 @@ public class BackgroundSelection : MonoBehaviour
         {
             if (stats.isApplied[i])
             {
-                SelectCar(i);
+                SelectBg(i);
             }
         }*/
-        SelectCar(currentBg);
+        SelectBg(currentBg);
         UpdateUI(); //added
+        UpdatePoints();
     }
     public void Awake()
     {
         instance = this;
     }
 
-    private void SelectCar(int _index)
+    private void SelectBg(int _index)
     {
         for (int i = 0; i < transform.childCount; i++)
             transform.GetChild(i).gameObject.SetActive(i == _index);
@@ -69,6 +73,10 @@ public class BackgroundSelection : MonoBehaviour
             priceText.text = bgPrices[currentBg] + "";
 
         }
+        if (stats.isApplied[currentBg])
+        {
+            apply.gameObject.SetActive(false);
+        }
 
     }
 
@@ -80,6 +88,7 @@ public class BackgroundSelection : MonoBehaviour
             buy.interactable = (stats.points >= bgPrices[currentBg]);     
 
         bgName.text = bgNames[currentBg] + "";
+        UpdateUI();
     }
 
     public void ChangeCar(int _change)
@@ -95,7 +104,7 @@ public class BackgroundSelection : MonoBehaviour
         SaveSystem.SaveStats(stats);
 
 
-        SelectCar(currentBg);
+        SelectBg(currentBg);
         Debug.Log(currentBg);
         Debug.Log(Screen.width + " and" + Screen.height);
     }
@@ -108,5 +117,20 @@ public class BackgroundSelection : MonoBehaviour
         SaveSystem.SaveStats(stats);
         //transform.position = new Vector3(0, 0, 0);
         UpdateUI();
+        UpdatePoints();
+    }
+    void UpdatePoints()
+    {
+        StatsData statsList = SaveSystem.LoadStats();
+        //pointsText.text = "" + statsList.points;
+        if (statsList.points >= 1000)
+        {
+            pointsText.text = "" + System.Math.Round(statsList.points / 1000f, 2) + "K";
+        }
+        else
+        {
+            pointsText.text = "" + statsList.points;
+        }
+
     }
 }
