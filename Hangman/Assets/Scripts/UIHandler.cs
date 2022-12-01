@@ -7,11 +7,14 @@ using TMPro; // 44
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Unity.VisualScripting;
+using Firebase.Database;
 
 // 35
 public class UIHandler : MonoBehaviour
 {
     public static UIHandler instance; // 38
+    private string userID;
+    private DatabaseReference dbReference;
 
     //public Animator firstCloud;
     //public Animator secondCloud;
@@ -25,6 +28,11 @@ public class UIHandler : MonoBehaviour
     public Animator[] earnPoints; // for feedback version only
     [Header("STATS")] // 44
     public TMP_Text statsText; // 44
+    public TMP_Text TotalWins;
+    public TMP_Text TotalLosses;
+    public TMP_Text GamesPlayed;
+    public TMP_Text WinRatio;
+    public TMP_Text FastestTime;
     public Stats saveFile; // 44
     [Header("POINTS")]
     public TMP_Text pointsText; // for feedback version only
@@ -65,10 +73,19 @@ public class UIHandler : MonoBehaviour
         //Load();
         LoadBGMSession();
         UpdatePoints(); // for feedback version only
-
+        userID = SystemInfo.deviceUniqueIdentifier;
+        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
+        CreateUser();
 
     } // 45
+    public void CreateUser()
+    {
+        Player newPlayer = new Player(int.Parse(TotalWins.text), int.Parse(TotalLosses.text), int.Parse(GamesPlayed.text), float.Parse(WinRatio.text), int.Parse(FastestTime.text));
+        //User newUser = new User(1, 2, 3, 4f, 5);
+        string json = JsonUtility.ToJson(newPlayer);
 
+        dbReference.Child("players").Child(userID).SetRawJsonValueAsync(json);
+    }
 
     public void SettingsButton() // top-left corner button
     {
@@ -108,7 +125,13 @@ public class UIHandler : MonoBehaviour
             "" + statsList.totalLosses + "\n" +
             "" + statsList.gamesPlayed + "\n" +
             "" + statsList.winRatio + "%\n" +
-            "" + statsList.fastestTime + "s\n"; 
+            "" + statsList.fastestTime + "s\n";
+
+        TotalWins.text = statsList.totalWins.ToString();
+        TotalLosses.text = statsList.totalLosses.ToString();
+        GamesPlayed.text = statsList.gamesPlayed.ToString();
+        WinRatio.text = statsList.winRatio.ToString();
+        FastestTime.text = statsList.fastestTime.ToString();
     } // 45
     void UpdatePoints()
     {
