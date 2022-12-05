@@ -9,15 +9,13 @@ public class Player
 
     public int gamesPlayed;
     public float winRatio;
-    public int fastestTime;
 
-    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio, int fastestTime)
+    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio)
     {
         this.totalWins = totalWins;
         this.totalLosses = totalLosses;
         this.gamesPlayed = gamesPlayed;
         this.winRatio = winRatio;
-        this.fastestTime = fastestTime;
     }
 
 
