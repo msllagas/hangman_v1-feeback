@@ -920,11 +920,8 @@ MonoBehaviour:
   earnPoints:
   - {fileID: 0}
   statsText: {fileID: 1762805015}
-  TotalWins: {fileID: 0}
-  TotalLosses: {fileID: 0}
-  GamesPlayed: {fileID: 0}
-  WinRatio: {fileID: 0}
-  FastestTime: {fileID: 0}
+  MotivationLevel: {fileID: 0}
+  AverageMotivationLevel: {fileID: 0}
   pointsText: {fileID: 0}
   winnerSound: {fileID: 0}
   backgroundSound: {fileID: 0}
@@ -3762,10 +3759,8 @@ MonoBehaviour:
 
     Win Rate:
 
-    Motivation
-    Level:
-
-    Central Tend:'
+    Fastest
+    Time:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 37019bee008ca2c4c85f238c474340b7, type: 2}
   m_sharedMaterial: {fileID: 8973214066790018233, guid: 37019bee008ca2c4c85f238c474340b7, type: 2}

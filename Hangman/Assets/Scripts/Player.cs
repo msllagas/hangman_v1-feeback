@@ -1,21 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player
 {
-    public int totalWins;
+   /* public int totalWins;
     public int totalLosses;
 
     public int gamesPlayed;
-    public float winRatio;
+    public float winRatio;*/
 
-    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio)
+    public float motivationLevel;
+    public float averageMotivationLevel;
+
+/*    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio)
     {
         this.totalWins = totalWins;
         this.totalLosses = totalLosses;
         this.gamesPlayed = gamesPlayed;
         this.winRatio = winRatio;
+    }*/
+
+    public Player(float motivationLevel, float averageMotivationLevel )
+    {
+       this.motivationLevel = motivationLevel;
+        this.averageMotivationLevel = averageMotivationLevel;
     }
 
 
