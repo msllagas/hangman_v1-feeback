@@ -37,7 +37,7 @@ public class Stats
         {
             statsList.totalML += 3f;
             statsList.actualML += calculatedML;
-            statsList.centralTend = (float)Math.Round((statsList.actualML / statsList.totalML) * 100, 2);
+            statsList.centralTend = (float)(statsList.actualML / (statsList.gamesPlayed - 1));
         }
         if (hasWonGame)
         {

@@ -51,9 +51,6 @@ public class UIHandler : MonoBehaviour
     public AnimationCurve TimeonTaskshort;
     public AnimationCurve TimeonTaskmedium;
     public AnimationCurve TimeonTasklong;
-    public AnimationCurve NumRepeatTaskLow;
-    public AnimationCurve NumRepeatTaskMed;
-    public AnimationCurve NumRepeatTaskHigh;
     public AnimationCurve PerformanceLow;
     public AnimationCurve PerformanceMid;
     public AnimationCurve PerformanceHigh;
@@ -114,8 +111,9 @@ public class UIHandler : MonoBehaviour
     public void CreateUser()
     {
         StatsData statsList = SaveSystem.LoadStats();
-        Player newPlayer = new Player(statsList.motivationLevel, statsList.centralTend); // subject to change
-        //User newUser = new User(1, 2, 3, 4f, 5);
+        float motLevPerc = (statsList.motivationLevel / 3) * 100;
+        float aveMLPerc = (statsList.centralTend / 3) * 100;
+        Player newPlayer = new Player(statsList.motivationLevel, statsList.centralTend, motLevPerc, aveMLPerc); // subject to change
         string json = JsonUtility.ToJson(newPlayer);
 
         dbReference.Child("players").Child(userID).SetRawJsonValueAsync(json);
