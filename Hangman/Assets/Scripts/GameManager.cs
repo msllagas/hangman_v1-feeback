@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour
             if (currentMistakes == maxMistakes) // 32
             {
                 // Debug.Log("Lost Game");
-                UIHandler.instance.LoseCondition(playTime, maxHints); // 38
+                UIHandler.instance.LoseCondition(playTime, maxHints, currentMistakes); // 38
                 gameOver = true;
                 
                 return;
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         if (gameOver) // 25
         {
             // show ui
-            UIHandler.instance.WinCondition(playTime, maxHints);
+            UIHandler.instance.WinCondition(playTime, maxHints, currentMistakes);
         }
     }
 
