@@ -27,6 +27,7 @@ public class Stats
     {
         StatsData statsList = SaveSystem.LoadStats();
 
+        statsList.points += (hasWonGame) ? 5 : 0;
         statsList.totalWins += (hasWonGame) ? 1 : 0;
         statsList.totalLosses += (!hasWonGame) ? 1 : 0;
         statsList.gamesPlayed = statsList.totalLosses + statsList.totalWins;
@@ -38,7 +39,7 @@ public class Stats
 
         if (hasWonGame)
         {
-            statsList.fastestTime = (playtime >= fastestTime) ? fastestTime : playtime;
+            statsList.fastestTime = (playtime >= statsList.fastestTime) ? statsList.fastestTime : playtime;
         }
 
 
