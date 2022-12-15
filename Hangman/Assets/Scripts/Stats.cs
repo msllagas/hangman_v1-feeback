@@ -20,7 +20,7 @@ public class Stats
     public int currentBg; // for feedback version only
     public bool[] bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false}; // for feedback version only
     public bool[] isApplied = new bool[11]  { true, false, false, false, false, false, false, false, false, false, false }; // for feedback version only
-
+    public bool isNewPlayer = true;
 
 
     public void SaveStats(bool hasWonGame, float calculatedML, int data, int playtime)

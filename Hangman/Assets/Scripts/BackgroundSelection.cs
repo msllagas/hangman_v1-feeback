@@ -36,7 +36,7 @@ public class BackgroundSelection : MonoBehaviour // for feedback version only
         {
             if (stats.isApplied[i])
             {
-                SelectBg(i);
+                SelectGuide(i);
             }
         }*/
         SelectBg(currentBg);

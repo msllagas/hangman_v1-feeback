@@ -103,7 +103,8 @@ public class UIHandler : MonoBehaviour
         //Load();
         LoadBGMSession();
         UpdatePoints(); // for feedback version only
-        userID = SystemInfo.deviceUniqueIdentifier;
+        //userID = "Mandy => " +  SystemInfo.deviceUniqueIdentifier;
+        userID =  SystemInfo.deviceUniqueIdentifier;
         dbReference = FirebaseDatabase.DefaultInstance.RootReference;
         CreateUser();
 
@@ -330,6 +331,9 @@ public class UIHandler : MonoBehaviour
     public void Menu()
     {
         SceneManager.LoadScene("Game");
+        StatsData statsList = SaveSystem.LoadStats();
+        statsList.isNewPlayer = false;
+        SaveSystem.SaveStats(statsList);
         //StartCoroutine(NextLevelAfterWait());
     }
 
