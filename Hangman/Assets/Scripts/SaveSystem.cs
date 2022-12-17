@@ -44,20 +44,24 @@ public static class SaveSystem
 
             if (data.isApplied == null)
                 data.isApplied = new bool[11] { true, false, false, false, false, false, false, false, false, false, false }; // added for feedback version
+
+            if (data.isNewPlayer == null)
+                data.isNewPlayer = true;
             stream.Close();
             return data;
         }
         else
         {
-            Stats stats = new Stats();
-            InitSave(stats);
-            //Debug.LogError("Save file not found");
-            BinaryFormatter formatter = new BinaryFormatter();
+           /* Stats stats = new Stats();
+            InitSave(stats);*/
+            Debug.LogError("Save file not found");
+           /* BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Open);
 
             StatsData data = formatter.Deserialize(stream) as StatsData;
-            stream.Close();
-            return data;
+            stream.Close();*/
+            /*return data;*/
+            return null;
         }
     }
 }

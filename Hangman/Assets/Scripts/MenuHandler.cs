@@ -26,10 +26,12 @@ public class MenuHandler : MonoBehaviour
     public Button StatsButton;
     public Button SettingsButton;
     public Button GuideButton;
+    public Button SaveButton;
 
     [Header("Image")]
     public Image OpenGuidePanel;
-    public Image OpenIfNewPlayer;
+    public Image IntroDialog;
+    public Image SecondDialog;
 
     [Header("STATS")]
     public TMP_Text statsText;
@@ -42,6 +44,7 @@ public class MenuHandler : MonoBehaviour
     {
 
         //Debug.Log(GuideObj.transform.childCount);
+        InitialSaveFile();
         UpdateStatsText();
         LoadBGMSession();
         IdentifyNewPlayer();
@@ -57,7 +60,16 @@ public class MenuHandler : MonoBehaviour
     {
         Debug.Log("Received a new message from: " + e.Message.From);
     }
+    void InitialSaveFile()
+    {
+        Stats statFile = new Stats();
 
+        string path = Application.persistentDataPath + "/stats.save";
+        if (!File.Exists(path))
+        {
+            statFile.InitStats();
+        }
+    }
     void UpdateStatsText()
     {
         StatsData statsList = SaveSystem.LoadStats();
@@ -120,8 +132,8 @@ public class MenuHandler : MonoBehaviour
         if (statsList.isNewPlayer)
         {
             Debug.Log("You're New");
-            OpenIfNewPlayer.GetComponent<Image>();
-            OpenIfNewPlayer.gameObject.SetActive(false);
+            SecondDialog.GetComponent<Image>();
+            SecondDialog.gameObject.SetActive(false);
         }
         else
         {
@@ -150,8 +162,8 @@ public class MenuHandler : MonoBehaviour
         if (statsList.isNewPlayer)
         {
             Debug.Log("You're New");
-            OpenIfNewPlayer.GetComponent<Image>();
-            OpenIfNewPlayer.gameObject.SetActive(true);
+            IntroDialog.GetComponent<Image>();
+            IntroDialog.gameObject.SetActive(true);
             GuideButton.GetComponent<Button>();
             GuideButton.gameObject.SetActive(false);
         }

@@ -1,6 +1,7 @@
 using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,19 +26,6 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            if(DialogHolder.text == Lines[index])
-            {
-                NextLine();
-            }
-            else
-            {
-                StopAllCoroutines();
-                DialogHolder.text = Lines[index];
-            }
-        }*/
-        //NextDialog();
     }
     public void NextDialog()
     {
@@ -53,7 +41,9 @@ public class Dialogue : MonoBehaviour
     }
     void StartDialogue()
     {
+        StatsData statsList = SaveSystem.LoadStats();
         index = 0;
+        Lines[0] = "Hey there, " +  statsList.firstName.Trim() + "! Nice to meet you!";
         StartCoroutine(TypeLine());
     }
 
@@ -72,14 +62,41 @@ public class Dialogue : MonoBehaviour
             index++;
             DialogHolder.text = string.Empty;
             StartCoroutine(TypeLine());
+            if(index == Lines.Length - 1)
+            {
+                Arrow.GetComponent<Image>();
+                Arrow.gameObject.SetActive(true);
+                GuideButton.GetComponent<Button>();
+                GuideButton.gameObject.SetActive(true);
+            }
         }
         else
         {
             /* gameObject.SetActive(false);*/
-            Arrow.GetComponent<Image>();
+            /*Arrow.GetComponent<Image>();
             Arrow.gameObject.SetActive(true);
             GuideButton.GetComponent<Button>();
-            GuideButton.gameObject.SetActive(true);
+            GuideButton.gameObject.SetActive(true);*/
         }
     }
+    /*private string GetFirstName(string fullname)
+    {
+        string firstName = "";
+        
+        if (GetWordsCount(fullname) > 2){
+            string[] parts = fullname.Trim().Split(' ');
+            for (int i = 0; i < parts.Length - 1; i++)
+            {
+                firstName += parts[i] + ' ';
+            }
+            return firstName;
+        }
+        else
+            return Regex.Replace(fullname.Trim().Split()[0], @"[^0-9a-zA-Z\ ]+", "");
+    }*/
+    /*private int GetWordsCount(string wordString)
+    {
+        string[] parts = wordString.Trim().Split(' ');
+        return parts.Length;
+    }*/
 }

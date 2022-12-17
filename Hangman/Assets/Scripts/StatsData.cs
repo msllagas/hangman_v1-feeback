@@ -23,6 +23,9 @@ public class StatsData
     public bool[] bgUnlocked; // for feedback version only
     public bool[] isApplied; // for feedback version only
     public bool isNewPlayer;
+    public string firstName;
+    public string lastName;
+    public string fullname;
     public StatsData ( Stats statsdata )
     {
         totalWins = statsdata.totalWins;
@@ -39,6 +42,9 @@ public class StatsData
         currentBg = statsdata.currentBg; // for feedback version only
         isApplied = statsdata.isApplied; // for feedback version only
         isNewPlayer = statsdata.isNewPlayer;
+        firstName = statsdata.firstName;
+        lastName = statsdata.lastName;
+        fullname = statsdata.fullname;
     }
 
 }

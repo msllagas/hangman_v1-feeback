@@ -21,6 +21,9 @@ public class Stats
     public bool[] bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false}; // for feedback version only
     public bool[] isApplied = new bool[11]  { true, false, false, false, false, false, false, false, false, false, false }; // for feedback version only
     public bool isNewPlayer = true;
+    public string firstName;
+    public string lastName;
+    public string fullname;
 
 
     public void SaveStats(bool hasWonGame, float calculatedML, int data, int playtime)

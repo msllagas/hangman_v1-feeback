@@ -10,6 +10,7 @@ public class Player
     public float averageMotivationLevel;
     public float motLevPerc;
     public float aveMLPerc;
+    public string fullName;
 
     /*    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio)
         {
@@ -19,12 +20,13 @@ public class Player
             this.winRatio = winRatio;
         }*/
 
-    public Player(float motivationLevel, float averageMotivationLevel, float motLevPerc, float aveMLPerc)
+    public Player(string fullName, float motivationLevel, float averageMotivationLevel, float motLevPerc, float aveMLPerc)
     {
         this.motivationLevel = motivationLevel;
         this.averageMotivationLevel = averageMotivationLevel;
         this.motLevPerc = motLevPerc;
         this.aveMLPerc = aveMLPerc;
+        this.fullName = fullName;
     }
 
 

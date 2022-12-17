@@ -96,7 +96,6 @@ public class UIHandler : MonoBehaviour
 
     void Start()
     {
-
         BackGroundMusic();
         InitialSaveFile();
         UpdateStatsText();
@@ -114,7 +113,7 @@ public class UIHandler : MonoBehaviour
         StatsData statsList = SaveSystem.LoadStats();
         float motLevPerc = (statsList.motivationLevel / 3) * 100;
         float aveMLPerc = (statsList.centralTend / 3) * 100;
-        Player newPlayer = new Player(statsList.motivationLevel, statsList.centralTend, motLevPerc, aveMLPerc); // subject to change
+        Player newPlayer = new Player(statsList.fullname, statsList.motivationLevel, statsList.centralTend, motLevPerc, aveMLPerc); // subject to change
         string json = JsonUtility.ToJson(newPlayer);
 
         dbReference.Child("players").Child(userID).SetRawJsonValueAsync(json);
