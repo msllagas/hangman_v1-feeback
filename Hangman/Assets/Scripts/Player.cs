@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
 public class Player
 {
-  
     public float motivationLevel;
     public float averageMotivationLevel;
     public float motLevPerc;
     public float aveMLPerc;
     public string fullName;
 
-    /*    public Player(int totalWins, int totalLosses, int gamesPlayed, float winRatio)
-        {
-            this.totalWins = totalWins;
-            this.totalLosses = totalLosses;
-            this.gamesPlayed = gamesPlayed;
-            this.winRatio = winRatio;
-        }*/
-
+    //Constructor that sets the values for the player
     public Player(string fullName, float motivationLevel, float averageMotivationLevel, float motLevPerc, float aveMLPerc)
     {
+        // Assigns the passed arguments to its corresponding fields
         this.motivationLevel = motivationLevel;
         this.averageMotivationLevel = averageMotivationLevel;
         this.motLevPerc = motLevPerc;

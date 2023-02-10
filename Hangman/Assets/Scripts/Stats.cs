@@ -5,27 +5,28 @@ using System;
 
 public class Stats
 {
+    // Stats to be passed on StatsData class constructor
     public int totalWins;
     public int totalLosses;
     public int gamesPlayed;
     public float winRatio;
-    public int fastestTime = 9999; // in seconds
+    public int fastestTime = 9999; 
     public int checker;
     public float motivationLevel;
     public float actualML;
     public float totalML;
     public float centralTend;
-    public int points; // for feedback version only
+    public int points; 
 
-    public int currentBg; // for feedback version only
-    public bool[] bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false}; // for feedback version only
-    public bool[] isApplied = new bool[11]  { true, false, false, false, false, false, false, false, false, false, false }; // for feedback version only
+    public int currentBg; 
+    public bool[] bgUnlocked = new bool[11] { true, false, false, false, false, false, false, false, false, false, false}; 
+    public bool[] isApplied = new bool[11]  { true, false, false, false, false, false, false, false, false, false, false }; 
     public bool isNewPlayer = true;
     public string firstName;
     public string lastName;
     public string fullname;
 
-
+    // Load the save file, edit it based on the passed arguments, and save all the data back to the file.
     public void SaveStats(bool hasWonGame, float calculatedML, int data, int playtime)
     {
         StatsData statsList = SaveSystem.LoadStats();
@@ -54,12 +55,9 @@ public class Stats
 
     }
 
+    // initially save this class to the file
     public void InitStats()
     {
         SaveSystem.InitSave(this);
-    }
-    public void LoadStats()
-    {
-        StatsData data = SaveSystem.LoadStats();
     }
 }

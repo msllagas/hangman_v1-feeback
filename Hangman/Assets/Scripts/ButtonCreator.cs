@@ -5,7 +5,7 @@ using TMPro;
 
 public class ButtonCreator : MonoBehaviour
 {
-    public static ButtonCreator instance; // 26
+    public static ButtonCreator instance;
 
     public TMP_Text hintsLeft;
 
@@ -18,12 +18,12 @@ public class ButtonCreator : MonoBehaviour
                                             "Z"};
     public Transform buttonHolder;
 
-    List<LetterButton> letterList = new List<LetterButton>(); // 26
+    List<LetterButton> letterList = new List<LetterButton>();
 
     void Awake()
     {
         instance = this;
-    } // 26
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,37 +32,42 @@ public class ButtonCreator : MonoBehaviour
         HintsLeft();
     }
 
+    // Populate the components that acts as a keyboard with each letters in letterToUse array
     void PopulateKeyboard()
     {
+        // Loops through the letterToUse array and create and assign each letter to the component
         for (int i = 0; i < letterToUse.Length; i++)
         {
             GameObject newButton = Instantiate(buttonPrefab, buttonHolder, false);
             newButton.GetComponentInChildren<TMP_Text>().text = letterToUse[i];
-            LetterButton myLetter = newButton.GetComponent<LetterButton>(); // 26
+            LetterButton myLetter = newButton.GetComponent<LetterButton>();
             myLetter.SetButton(letterToUse[i]);
 
             letterList.Add(myLetter);
         }
     }
 
+    // Remove the passed LetterButton type from the letterList List
     public void RemoveLetter(LetterButton theButton)
     {
         letterList.Remove(theButton);
-    }// 26
+    }
 
-    // From the hint button
+    // Event listener for the hint button
     public void UseHint()
     {
         if (GameManager.instance.GameOver() || GameManager.instance.maxHints <= 0)
         {
-            Debug.Log("No Hints Left!");
             return;
-        } // 27
-        GameManager.instance.maxHints--; // 27
+        } 
+        GameManager.instance.maxHints--; 
+        // Call the HinstLeft() function to get the remaining hints
         HintsLeft();
         int randomIndex = Random.Range(0, letterList.Count);
         letterList[randomIndex].Sendletter(true);
-    } // 26
+    } 
+
+    // Update the textfield component with the hints left
     public void HintsLeft()
     {
         hintsLeft.text = "Hint: " + GameManager.instance.maxHints.ToString();

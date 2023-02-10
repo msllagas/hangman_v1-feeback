@@ -2,106 +2,107 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Linq; // 19
-using Unity.VisualScripting.Antlr3.Runtime;
+using System.Linq; 
 
-// 16
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager instance; // 23
+    public static GameManager instance; 
     
     List<string> solvedList = new List<string>();
     string[] unsolvedWord;
-    [Header("Letters")]
+
+    [Header("LETTERS")]
     [Space]
     public GameObject letterPrefab;
     public Transform letterHolder;
-    List<TMP_Text> letterHolderList = new List<TMP_Text>(); // 20
-    [Header("Categories")]
+    List<TMP_Text> letterHolderList = new List<TMP_Text>(); 
+
+    [Header("CATEGORIES")]
     [Space]
-    public Category[] categories; // 19
-    public TMP_Text categoryText; // 24
+    public Category[] categories; 
+    public TMP_Text categoryText; 
     public TMP_Text definitionText;
     public TMP_Text correctWord;
-    [Header("Timer")] // 25
+
+    [Header("TIMER")]
     [Space]
-    public TMP_Text timerText; // 25
-    int playTime; // 25
-    bool gameOver; // 25
-    [Header("Hints")] // 27
+    public TMP_Text timerText; 
+    int playTime; 
+    bool gameOver; 
+
+    [Header("HINTS")] 
     [Space]
-    public int  maxHints = 3; // 27
-    [Header("Mistakes")] // 32
+    public int maxHints = 3; 
+
+    [Header("PETALS")] 
     [Space]
     public Animator[] petalList;
     [SerializeField]
+
+    [Header("MISTAKES")]
     int maxMistakes;
     int currentMistakes;
-    
-
-    // public bool pause;
 
     void Awake()
     {
         instance = this;
-    } // 23
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        maxMistakes = petalList.Length; // 32
+        maxMistakes = petalList.Length;
         Initialize();
-        StartCoroutine(Timer()); // 25
+        StartCoroutine(Timer()); 
     }
 
+    // Initializes the letters to be solved
     void Initialize()
     {
-        // pick a category first
+        // Pick a category first
+        int cIndex = Random.Range(0, categories.Length); 
+        categoryText.text = categories[cIndex].name;
+        int wIndex = Random.Range(0, categories[cIndex].wordList.Length);
 
-        int cIndex = Random.Range(0, categories.Length); // 19
-        categoryText.text = categories[cIndex].name; // 24
-        int wIndex = Random.Range(0, categories[cIndex].wordList.Length); // 19
-
-        //pick a word from list or category
-        string pickedWord = categories[cIndex].wordList[wIndex]; // 19
+        // Pick a word from list or category
+        string pickedWord = categories[cIndex].wordList[wIndex]; 
 
         definitionText.text = categories[cIndex].definition[wIndex];
         correctWord.text = pickedWord;
-        // split the word into single letters
-        string[] splittedWord = pickedWord.Select(l => l.ToString()).ToArray(); // 19
-        unsolvedWord = new string[splittedWord.Length]; // 19
-        foreach (string letter in splittedWord) // 20
+        // Split the word into single letters
+        string[] splittedWord = pickedWord.Select(l => l.ToString()).ToArray(); 
+        unsolvedWord = new string[splittedWord.Length]; 
+        foreach (string letter in splittedWord) 
         {
             solvedList.Add(letter);
         }
-        // create the visual
-        for (int i = 0; i < solvedList.Count; i++) // 20
+        // Map each letter to the letterHolder game object
+        for (int i = 0; i < solvedList.Count; i++) 
         {
             GameObject tempLetter = Instantiate(letterPrefab, letterHolder, false);
             letterHolderList.Add(tempLetter.GetComponent<TMP_Text>());
         }
     }
 
+    // Check if the letter that is clicked exists in the letter to be solved
     public void InputFromButton(string requestedLetter, bool isThatAHint)
     {
-        // Check if the game is not over yet
-
-
-        // search mechanic for solved list
+        // Search mechanic for solved list
         CheckLetter(requestedLetter, isThatAHint); // 21
     }
 
+    // Check the letter input from the button component
     void CheckLetter(string requestedLetter, bool isThatAHint)
     {
-        if (gameOver) // 33
+        if (gameOver) 
         {
             return;
         }
 
-        bool letterFound = false; // 21
-        // find the letter in the solved list
-        for (int i = 0; i < solvedList.Count; i++) // 21
+        bool letterFound = false; 
+        // Find the letter in the solved list
+        for (int i = 0; i < solvedList.Count; i++) 
         {
             if (solvedList[i] == requestedLetter)
             {
@@ -111,16 +112,15 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!letterFound && !isThatAHint) // 21
+        if (!letterFound && !isThatAHint) 
         {
-            // mistake stuff - graphical representation
-            petalList[currentMistakes].SetTrigger("miss"); // 32
+            // If mistake was commited, trigger the "miss" animation on a petal
+            petalList[currentMistakes].SetTrigger("miss");
             currentMistakes++;
-            // and do game over
-            if (currentMistakes == maxMistakes) // 32
+            // Check if current mistakes is equal to the max mistakes limit
+            if (currentMistakes == maxMistakes) 
             {
-                // Debug.Log("Lost Game");
-                UIHandler.instance.LoseCondition(playTime, maxHints, currentMistakes); // 38
+                UIHandler.instance.LoseCondition(playTime, maxHints, currentMistakes); 
                 gameOver = true;
                 
                 return;
@@ -128,20 +128,20 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // check if game won
-        Debug.Log("Game Won?: " + CheckIfWon()); // 22
-        gameOver = CheckIfWon(); // 25
-        if (gameOver) // 25
+        // Check if game won
+        gameOver = CheckIfWon();
+        if (gameOver)
         {
-            // show ui
+            // Get and show the UI associated
             UIHandler.instance.WinCondition(playTime, maxHints, currentMistakes);
         }
     }
 
+    // Returns if a player won or not
     bool CheckIfWon()
     {
-        // Check Mechanic
-        for (int i = 0; i < unsolvedWord.Length; i++) // 22
+        // Check if the word is solved
+        for (int i = 0; i < unsolvedWord.Length; i++) 
         {
             if (unsolvedWord[i] != solvedList[i])
             {
@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    // Function for the timer for the game
     IEnumerator Timer()
     {
         int seconds = 0;
@@ -158,13 +159,6 @@ public class GameManager : MonoBehaviour
         timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
         while (!gameOver )
         {
-         /*   
-                while (pause)
-                {
-                    yield return new WaitForSeconds(0.1f);
-                }
-                
-            */
             yield return new WaitForSeconds(1);
             playTime++;
             
@@ -174,11 +168,12 @@ public class GameManager : MonoBehaviour
             timerText.text = minutes.ToString("D2") + ":" + seconds.ToString("D2");
 
         }
-    } // 25
+    }
 
+    // Returns true if the game is over, otherwise returns false
     public bool GameOver()
     {
         return gameOver;
-    } // 27
+    } 
 
 }

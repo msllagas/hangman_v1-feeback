@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class ImageAnimation : MonoBehaviour // for feedback version only
+// Script for programmatically animating each image in the background shop panel
+public class ImageAnimation : MonoBehaviour
 {
     [SerializeField] private Vector3 finalPosition;
     private Vector3 initialPosition;

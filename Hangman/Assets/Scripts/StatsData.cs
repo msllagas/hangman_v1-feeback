@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class StatsData
 {
-
+    // stats to be saved to the save file
     public int totalWins;
     public int totalLosses;
 
@@ -17,15 +17,18 @@ public class StatsData
     public float motivationLevel;
     public int checker;
     public int fastestTime;
-    public int points; // for feedback version only
+    public int points; 
 
-    public int currentBg; // for feedback version only
-    public bool[] bgUnlocked; // for feedback version only
-    public bool[] isApplied; // for feedback version only
+    public int currentBg; 
+    public bool[] bgUnlocked;
+    public bool[] isApplied;
     public bool isNewPlayer;
     public string firstName;
     public string lastName;
     public string fullname;
+
+    /*constructor of the StatsData class which take a type Stats parameter 
+     * and assign its global variables to the global variables of the passed arguments */
     public StatsData ( Stats statsdata )
     {
         totalWins = statsdata.totalWins;
@@ -37,10 +40,10 @@ public class StatsData
         motivationLevel = statsdata.motivationLevel;
         checker = statsdata.checker;
         fastestTime = statsdata.fastestTime;
-        points = statsdata.points; // for feedback version only
-        bgUnlocked = statsdata.bgUnlocked; // for feedback version only
-        currentBg = statsdata.currentBg; // for feedback version only
-        isApplied = statsdata.isApplied; // for feedback version only
+        points = statsdata.points; 
+        bgUnlocked = statsdata.bgUnlocked; 
+        currentBg = statsdata.currentBg; 
+        isApplied = statsdata.isApplied; 
         isNewPlayer = statsdata.isNewPlayer;
         firstName = statsdata.firstName;
         lastName = statsdata.lastName;

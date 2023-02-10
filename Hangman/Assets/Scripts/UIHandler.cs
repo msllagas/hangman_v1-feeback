@@ -1,44 +1,34 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; // 39
+using UnityEngine.SceneManagement; 
 using UnityEngine.UI;
-using TMPro; // 44
+using TMPro;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Unity.VisualScripting;
 using Firebase.Database;
 
-// 35
 public class UIHandler : MonoBehaviour
 {
-    public static UIHandler instance; // 38
-    private string userID;
-    private DatabaseReference dbReference;
+    public static UIHandler instance;
 
-    //public Animator firstCloud;
-    //public Animator secondCloud;
-    public Animator gameOverPanel; // id 1
-    public Animator statsPanel; // id 2
-    public Animator winPanel; // id 3
-    public Animator settingsPanel; // id 4
+    [Header("ANIMATOR")]
+    public Animator gameOverPanel; 
+    public Animator statsPanel; 
+    public Animator winPanel; 
+    public Animator settingsPanel; 
     public Animator hintPanel;
-    public Animator shop; // for feedback version only
+    public Animator shop;
+
     [Space]
-    public Animator[] earnPoints; // for feedback version only
-    [Header("STATS")] // 44
-    public TMP_Text statsText; // 44
-/*    public TMP_Text TotalWins;
-    public TMP_Text TotalLosses;
-    public TMP_Text GamesPlayed;
-    public TMP_Text WinRatio;
-    public TMP_Text FastestTime;
-    [Header("Data Placeholder")]
-    public TMP_Text MotivationLevel;
-    public TMP_Text AverageMotivationLevel;*/
-    public Stats saveFile; // 44
+    [Header("ANIMATOR ARRAY")]
+    public Animator[] earnPoints; 
+
+    [Header("STATS")] 
+    public TMP_Text statsText;
+    public Stats saveFile; 
+
     [Header("POINTS")]
-    public TMP_Text pointsText; // for feedback version only
+    public TMP_Text pointsText; 
+
     [Header("AUDIO")]
     public AudioClip winnerSound;
     public AudioClip backgroundSound;
@@ -46,8 +36,7 @@ public class UIHandler : MonoBehaviour
     public AudioClip clickSound;
     public AudioSource audioSource;
 
-    //fuzzy
-    [Header("FuzzyLogic")]
+    [Header("FUZZY LOGIC")]
     public AnimationCurve TimeonTaskshort;
     public AnimationCurve TimeonTaskmedium;
     public AnimationCurve TimeonTasklong;
@@ -57,6 +46,8 @@ public class UIHandler : MonoBehaviour
     public AnimationCurve NumHelpRequestlow;
     public AnimationCurve NumHelpRequestmed;
     public AnimationCurve NumHelpRequesthigh;
+
+    // Initialize variables for fuzzy logic inputs
     int totNumber;
     float totshortValue = 0f;
     float totmedValue = 0f;
@@ -70,74 +61,45 @@ public class UIHandler : MonoBehaviour
     float nhrmedValue = 0f;
     float nhrhighValue = 0f;
 
-    //motivation level
     float motivationLevel;
 
     [Header("SLIDER")]
     [SerializeField] Slider bgmSlider;
 
+    [Header("PANEL")]
     public Image victory_losePanel;
     public Image settings_StatsPanel;
-
-    
-    public void reducer()
-    {
-        StatsData statsList = SaveSystem.LoadStats();
-        statsList.points -= 5;
-        SaveSystem.SaveStats(statsList);
-        UpdatePoints(); // for feedback version only
-    }
 
     void Awake()
     {
         instance = this;
-        //DontDestroyOnLoad(this.gameObject);
-    }// 38
+    }
 
+    // Start is called before the first frame update
     void Start()
     {
         BackGroundMusic();
         InitialSaveFile();
         UpdateStatsText();
-        //Load();
         LoadBGMSession();
-        UpdatePoints(); // for feedback version only
-        //userID = "Mandy => " +  SystemInfo.deviceUniqueIdentifier;
-        userID =  SystemInfo.deviceUniqueIdentifier;
-        dbReference = FirebaseDatabase.DefaultInstance.RootReference;
-        CreateUser();
+        UpdatePoints();
+    } 
 
-    } // 45
-    public void CreateUser()
-    {
-        StatsData statsList = SaveSystem.LoadStats();
-        float motLevPerc = (statsList.motivationLevel / 3) * 100;
-        float aveMLPerc = (statsList.centralTend / 3) * 100;
-        Player newPlayer = new Player(statsList.fullname, statsList.motivationLevel, statsList.centralTend, motLevPerc, aveMLPerc); // subject to change
-        string json = JsonUtility.ToJson(newPlayer);
-
-        dbReference.Child("players").Child(userID).SetRawJsonValueAsync(json);
-    }
-
-    public void SettingsButton() // top-left corner button
+    // Trigger the "open" animation of settings panel and enable the settings image panel
+    public void SettingsButton()
     {
         settingsPanel.SetTrigger("open");
-        //VLPanelEnabler();
         SSPanelEnabler();
     }
-    public void StatsButton() // top-left corner button
+
+    // Trigger the "open" animation of stats panel and enable the settings image panel
+    public void StatsButton()
     {
-
-        UpdateStatsText();
         statsPanel.SetTrigger("open");
-        //VLPanelEnabler();
         SSPanelEnabler();
-       /* victory_losePanel.GetComponent<Image>();
-        victory_losePanel.gameObject.SetActive(true);*/
-
-        // 45
     }
 
+    // Check if a save file exist, if not create a save file instead
     void InitialSaveFile()
     {
         Stats statFile = new Stats();
@@ -149,38 +111,26 @@ public class UIHandler : MonoBehaviour
         }  
     }
 
+    // Loads the save file and update the stats on the textfield component
     void UpdateStatsText()
     {
         StatsData statsList = SaveSystem.LoadStats();
-        /*        statsText.text =
-                    "" + statsList.totalWins + "\n" +
-                    "" + statsList.totalLosses + "\n" +
-                    "" + statsList.gamesPlayed + "\n" +
-                    "" + statsList.winRatio + "%\n" +
-                    "" + statsList.motivationLevel + "s\n" +
-                    "" + statsList.centralTend + "s\n";*/
-
         statsText.text =
             "" + statsList.totalWins + "\n" +
             "" + statsList.totalLosses + "\n" +
             "" + statsList.gamesPlayed + "\n" +
             "" + statsList.winRatio + "%\n" +
             "" + statsList.fastestTime + "s\n";
+    } 
 
-/*        MotivationLevel.text = statsList.motivationLevel.ToString();
-        AverageMotivationLevel.text = statsList.centralTend.ToString();
-        TotalWins.text = statsList.totalWins.ToString();
-        TotalLosses.text = statsList.totalLosses.ToString();
-        GamesPlayed.text = statsList.gamesPlayed.ToString();
-        WinRatio.text = statsList.winRatio.ToString();*/
-        //FastestTime.text = statsList.fastestTime.ToString();
-    } // 45
+    // Load the save file and update the points on its corresponding component
     void UpdatePoints()
     {
         StatsData statsList = SaveSystem.LoadStats();
-        //pointsText.text = "" + statsList.points;
+        // Check of the points is greater than or equal to 1000
         if (statsList.points >= 1000)
         {
+            // If it is, round the points into 2 decimals places and add "K"
             pointsText.text = "" + System.Math.Round(statsList.points / 1000f, 2) + "K";
         }
         else
@@ -188,18 +138,18 @@ public class UIHandler : MonoBehaviour
             pointsText.text = "" + statsList.points;
         }
 
-    } // for feedback version only
+    }
 
+    // Get the AudioSource component and play its clip on loop
     void BackGroundMusic()
     {
         audioSource.GetComponent<AudioSource>();
         audioSource.clip = backgroundSound;
         audioSource.loop = true;
-        audioSource.Play();
-        //audioSource.PlayOneShot(backgroundSound, 0.7f);
-        
+        audioSource.Play();    
     }
 
+    // Closes the panel according to the passed buttonId
     public void ClosePanelButton(int buttonId)
     {
         switch (buttonId)
@@ -208,7 +158,6 @@ public class UIHandler : MonoBehaviour
                 gameOverPanelTrigger();
                 break;
             case 2:
-                //statsPanel.SetTrigger("close");
                 statsPanelTrigger();
                 break;
             case 3:
@@ -216,18 +165,20 @@ public class UIHandler : MonoBehaviour
                 break;
             case 4:
                 settingsPanelTrigger();
-                //settingsPanel.SetTrigger("close");
                 break;
         }
     }
+
+    // Trigger the "close" winPanel animation and stop the winnerSound audio clip
     public void winPanelTrigger()
     {
         winPanel.SetTrigger("close");
         audioSource.clip = winnerSound;
         audioSource.Stop();
         BackGroundMusic();
-
     }
+
+    // Trigger the "close" gameOverPanel animation and stop the gameOverSound audio clip
     public void gameOverPanelTrigger()
     {
         gameOverPanel.SetTrigger("close");
@@ -235,25 +186,24 @@ public class UIHandler : MonoBehaviour
         audioSource.Stop();
         BackGroundMusic();
     }
+
+    // Trigger the "close" animation of statsPanel
     public void statsPanelTrigger()
     {
-        //victory_losePanel.GetComponent<Image>();
-        //victory_losePanel.gameObject.SetActive(false);
-        //VLPanelDisabler();
         SSPanelDisabler();
         statsPanel.SetTrigger("close");
-
     }
+
+    // Trigger the "close" animation of settingsPanel
     public void settingsPanelTrigger()
     {
-
-        //VLPanelDisabler();
         SSPanelDisabler();
         settingsPanel.SetTrigger("close");
         Save();
     }
 
-    public void WinCondition(int playTime, int remHints, int curMistakes) // could pass in mistakes used and time used
+    // Evaluate the player's stats after winning
+    public void WinCondition(int playTime, int remHints, int curMistakes) // Could pass in mistakes used and time used
     {
         Stats statsFile = new Stats();
 
@@ -264,24 +214,26 @@ public class UIHandler : MonoBehaviour
 
         motivationLevel = rulesEvaluator(timeonTask, numRepeatTask, numHelpRequest);
 
+        // Save the stats into the save file
+        statsFile.SaveStats(true, motivationLevel, timeonTask, playTime);
 
-        statsFile.SaveStats(true, motivationLevel, timeonTask, playTime); // 44
-
+        // Trigger the "open" animation of winPanel
         winPanel.SetTrigger("open");
         VLPanelEnabler();
         audioSource.Stop();
         if (winnerSound != null)
         {
+            // Play the winnerSound audio clip once
             audioSource.PlayOneShot(winnerSound, 0.7f);
         }
         StartCoroutine(NextLevelAfterWait());
-        //earnPoints.SetTrigger("open");
         StartCoroutine(PointsUpdateDelay());
     }
+
+    // Evaluate the player's stats after lossing
     public void LoseCondition(int playTime, int remHints, int curMistakes) // could pass in mistakes used and time used
     {
         Stats statsFile = new Stats();
-
 
         int usedHints = 3 - remHints;
         int numRepeatTask = nrtEvaluateValue(curMistakes);
@@ -289,105 +241,127 @@ public class UIHandler : MonoBehaviour
         int numHelpRequest = nhrEvaluateValue(usedHints);
 
         motivationLevel = rulesEvaluator(timeonTask, numRepeatTask, numHelpRequest);
-        statsFile.SaveStats(false, motivationLevel, timeonTask, playTime); // 44
 
+        // Save the stats into the save file
+        statsFile.SaveStats(false, motivationLevel, timeonTask, playTime);
+
+        // Trigger the "open" animation of gameOverPanel
         gameOverPanel.SetTrigger("open");
         VLPanelEnabler();
         audioSource.Stop();
         if (gameOverSound != null)
         {
+            // Play the gameOverSound audio clip once
             audioSource.PlayOneShot(gameOverSound, 0.7f);
-
-
         }
     }
 
+    // Load the Main Menu game scene
     public void BackToMenu(string levelToLoad)
     {
-        
         SceneManager.LoadScene(levelToLoad);
+    } 
 
-    } // 39
-
+    // Delay the animation for earning points
     public IEnumerator NextLevelAfterWait()
     {
         yield return new WaitForSeconds(.5f);
-
-        //SceneManager.LoadScene("Game");
         
         for (int i = 0; i < earnPoints.Length; i++)
         {
             earnPoints[i].SetTrigger("open");
         }
     }
+
+    // Delay the animation for updating points
     public IEnumerator PointsUpdateDelay()
     {
         yield return new WaitForSeconds(1.5f);
-
-        //SceneManager.LoadScene("Game");
         UpdatePoints();
     }
+
+    // Load the Game Scene and set the isNewPlayer stats to false
     public void Menu()
     {
         SceneManager.LoadScene("Game");
         StatsData statsList = SaveSystem.LoadStats();
         statsList.isNewPlayer = false;
         SaveSystem.SaveStats(statsList);
-        //StartCoroutine(NextLevelAfterWait());
     }
 
+    // Reload and resets the game scene
     public void ResetGame()
     {
-        // load the currentBg open scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    } // 39
+    } 
 
+    // Quit the game itself
     public void ExitGame()
     {
         Application.Quit();
-    }// 40
+    }
 
+    // Activate a panel (panel that pop up with winning or lossing the game) that disables
+    // user interaction to other components on the background
     public void VLPanelEnabler()
     {
         victory_losePanel.GetComponent<Image>();
         victory_losePanel.gameObject.SetActive(true);
     }
+
+    // Deactivate a panel (panel that pop up with winning or lossing the game) that disables
+    // user interaction to other components on the background
     public void VLPanelDisabler()
     {
 
         victory_losePanel.GetComponent<Image>();
         victory_losePanel.gameObject.SetActive(false);
     }
+
+    // Activate a panel (panel that pop up with opening stats or settings panel) that disables
+    // user interaction to other components on the background
     public void SSPanelEnabler()
     {
         settings_StatsPanel.GetComponent<Image>();
         settings_StatsPanel.gameObject.SetActive(true);
     }
+
+    // Deactivate a panel (panel that pop up with opening stats or settings panel) that disables
+    // user interaction to other components on the background
     public void SSPanelDisabler()
     {
-
         settings_StatsPanel.GetComponent<Image>();
         settings_StatsPanel.gameObject.SetActive(false);
     }
+
+    // Play the clickSound every time a corresponding component is clicked
     public void ClickSound()
     {
         audioSource.clip = clickSound;
         audioSource.Play();
     }
+
+    // Saves the volume level of the background music
     public void Save()
     {
+        // Set the "musicVolume" key in PlayerPrefs to the value of the bgmSlider
         PlayerPrefs.SetFloat("musicVolume", bgmSlider.value);
-        //Load();
     }
+
+    // Loads the saved volume value for background music
     public void Load()
     {
+        // Retrieve the value of background music volume from PlayerPrefs
         bgmSlider.value = PlayerPrefs.GetFloat("musicVolume");
-        //AudioListener.volume = bgmSlider.value;
     }
+
+    // Checks if there is an existing playerprefs for background music
     public void LoadBGMSession()
     {
+        // Check if "musicVolume" key exists in PlayerPrefs
         if (!PlayerPrefs.HasKey("musicVolume"))
         {
+            // If "musicVolume" key does not exist, set its value to 1 and load it
             PlayerPrefs.SetFloat("musicVolume", 1);
             Load();
         }
@@ -396,34 +370,28 @@ public class UIHandler : MonoBehaviour
             Load();
         }
     }
+
+    // Changes the volume according to the value of bgmSlider
     public void ChangeVolume()
     {
         AudioListener.volume = bgmSlider.value;
         Save();
     }
-    public void DefinitionHint()
-    {
-        hintPanel.SetTrigger("open");
-    }
-/*    public void Pause()
-    {
-        GameManager.instance.pause = true;
-    }
-    public void Play()
-    {
-        GameManager.instance.pause = false;
-    }*/
+
+    // Trigger the "open" shop panel animation
     public void OpenShop()
     {
         shop.SetTrigger("open");
-    } // for feedback version only
+    }
+
+    // Update points text and trigger the "close" shop panel animatin
     public void CloseShop()
     {
+        UpdatePoints();
         shop.SetTrigger("close");
-    } // for feedback version only
+    } 
 
-
-    //TimeonTask
+    // Function that calculates TimeonTask for Fuzzy Logic
     public int totEvaluateValue(int time)
     {
         totshortValue = TimeonTaskshort.Evaluate(time);
@@ -445,7 +413,7 @@ public class UIHandler : MonoBehaviour
         return totNumber;
     }
 
-    //Mistakes
+    // Function that calculates Mistakes for Fuzzy Logix
     public int nrtEvaluateValue(int mistakes)
     {
         nrtLowValue = NumRepeatTaskLow.Evaluate(mistakes);
@@ -467,29 +435,7 @@ public class UIHandler : MonoBehaviour
         return nrtNumber;
     }
 
-    //sWins
-    /*public int perfEvaluateValue(float winratio)
-    {
-        perfLowValue = NumRepeatTaskLow.Evaluate(winratio);
-        perfMedValue = NumRepeatTaskAve.Evaluate(winratio);
-        perfHighValue = NumRepeatTaskHigh.Evaluate(winratio);
-
-        if (perfLowValue > perfMedValue && perfLowValue > perfHighValue)
-        {
-            perfNumber = 1;
-        }
-        else if (perfMedValue > perfLowValue && perfMedValue > perfHighValue)
-        {
-            perfNumber = 2;
-        }
-        else if (perfHighValue > perfLowValue && perfHighValue > perfMedValue)
-        {
-            perfNumber = 3;
-        }
-        return perfNumber;
-    }*/
-
-    //NumHelpRequest
+    //Function that calculates NumHelpRequest for Fuzzy Logic
     public int nhrEvaluateValue(int usedHints)
     {
         nhrlowValue = NumHelpRequestlow.Evaluate(usedHints);
@@ -511,6 +457,7 @@ public class UIHandler : MonoBehaviour
         return nhrNumber;
     }
 
+    // Function to get motivation level according to the passed arguments
     public float rulesEvaluator(int TimeonTask, int NumRepeatTask, int NumHelpRequest)
     {
         //1

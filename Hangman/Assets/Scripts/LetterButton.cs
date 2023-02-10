@@ -9,19 +9,22 @@ public class LetterButton : MonoBehaviour
     [SerializeField]
     public AudioSource audioSource;
 
-
+    // Set button to its correspondiong letter
     public void SetButton(string _letter)
     {
         letter = _letter;
     }
 
+    // Check if a button clicked is hint or letter button
     public void Sendletter(bool isThatAHint)// button input or hint
     {
-        Debug.Log("My letter is: " + letter);
-        GameManager.instance.InputFromButton(letter, isThatAHint); // 23
-        ButtonCreator.instance.RemoveLetter(this); // 26
+
+        GameManager.instance.InputFromButton(letter, isThatAHint); 
+        ButtonCreator.instance.RemoveLetter(this); 
         GetComponent<Button>().interactable = false;
     }
+
+    // Play audio clip every time the button is clicked
     public void click()
     {
         audioSource.GetComponent<AudioSource>();
