@@ -1,5 +1,7 @@
 # Hangman
 Hangman-based android word guessing game called FloWord. A thesis software tool to get motivational level of students when learning English vocabulary.
+
+In this particular version of FloWord, a unique in-game shop system has been introduced. As players successfully guess the correct words and accumulate a sufficient number of plants, they gain the ability to purchase various backgrounds to enhance their gaming experience. This allows them to customize their game environment beyond the standard plain blue background.
 ## Technologies
  - C#
  - Firebase
