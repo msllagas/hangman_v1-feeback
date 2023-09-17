@@ -1,6 +1,10 @@
 # Hangman - Feedback version
 Hangman-based android word guessing game called FloWord. A thesis software tool to get motivational level of students when learning English vocabulary.
 
+Our game includes an in-depth statistics feature, allowing players to track and monitor their performance over time. These in-game stats provide valuable insights into their progress, helping them assess their strengths and areas for improvement. Furthermore, we've introduced an immersive sound system designed to enhance the player's mood and overall gaming experience. 
+
+Behind the scenes, a data evaluation process is at work, employing fuzzy logic to assess whether the game effectively motivates players to learn English vocabulary. This intricate analytical approach takes into account various factors and nuances to gauge the level of motivation experienced by players as they engage with the game.
+
 In this particular version of FloWord, a unique in-game shop system has been introduced. As players successfully guess the correct words and accumulate a sufficient number of plants, they gain the ability to purchase various backgrounds to enhance their gaming experience. This allows them to customize their game environment beyond the standard plain blue background.
 ## Technologies
  - C#
