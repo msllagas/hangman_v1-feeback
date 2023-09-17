@@ -1,2 +1,15 @@
-# hangman
-Hangman with Unity
+# Hangman
+Hangman-based android word guessing game called FloWord. A thesis software tool to get motivational level of students when learning English vocabulary.
+## Technologies
+ - C#
+ - Firebase
+ - Unity 3D
+ - Figma
+ - Git
+## Preview
+![Tutorial lobby snapshot](https://scontent.fmnl33-4.fna.fbcdn.net/v/t1.15752-9/320011688_534101718773152_809945099572654034_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeGEUfHAW1dj-nxW5bGJXZlwF2iH976BCGoXaIf3voEIamI6Bb0buaFCzDfZ3sJpmcTDgukhdU4UqO7cCqqi-K9z&_nc_ohc=VYrRZbz59tMAX8Bukse&_nc_ht=scontent.fmnl33-4.fna&oh=03_AdQh_QBikA8BDx35ewUsVdPCmXbDikPy6MUqhug-Z0rSJQ&oe=652E00F6)
+![Tutorial lobby snapshot](https://scontent.fmnl33-3.fna.fbcdn.net/v/t1.15752-9/320243841_3369141460000474_1226459404483264655_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=ae9488&_nc_aid=0&_nc_eui2=AeFrXLGKjIT7tfN-VkCivVlNBSgfs98Y1A8FKB-z3xjUD_QeV6DcbWfrBz0Aew4Do1BRvzNNkKIAzaS1HXzBwEHe&_nc_ohc=8EERXcjDX9sAX9b5gzb&_nc_ht=scontent.fmnl33-3.fna&oh=03_AdQBQc5lhmA-am1YcwgWdZBwMFWpDVFCQ_ltJK1JJ-MrrA&oe=652E014F)
+![In-game snapshot](https://scontent.fmnl33-1.fna.fbcdn.net/v/t1.15752-9/318948940_671498977795781_2186610864698991232_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_eui2=AeFW2kWohZemmZSYKZdk-zFGvihTzhDidmi-KFPOEOJ2aAexZXfLXU3lysTKtY2UFwx3BWY69K37ZS9F1Jl0kRgG&_nc_ohc=-EKZKRmVPrQAX9VqFpc&_nc_oc=AQkqjSQMuOBAtYjt8lHXiepk48tfAmA-FtQpKlxRnUR4y9x_HEpOLpA-I8V14-4lmZJ6erfx5SgmrwKS_nH28JSt&_nc_ht=scontent.fmnl33-1.fna&oh=03_AdQixr3-OTAYXHeIRj0fkg-E2mUy3DbTT5OSwU_veAJr6A&oe=652DF45F)
+![In-game snapshot](https://github.com/msllagas/hangman_v1-feeback/assets/94226891/e610c1b0-b573-4889-9fdf-f79caff6fd14)
+## Download
+To download, please click [this link](https://www.mediafire.com/file/0n9cqfm4lniu9us/floword-feedback.apk/file?fbclid=IwAR3XFeoFdaQT5cMpdZrc3Sq0kZOQIEaTu4R0H38V6UR4nnMBgHZ033PAC4w). Please take note that this works only on android devices.
